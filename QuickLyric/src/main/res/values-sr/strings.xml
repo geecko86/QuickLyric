@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * This file is part of QuickLyric
+  ~  * Created by geecko
+  ~  *
+  ~  * QuickLyric is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * QuickLyric is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
+  ~  */
+  -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="app_name">Брзи стих</string>
+    <string name="title_lyrics">Стихови</string>
+    <string name="share">Подели</string>
+    <string name="refresh">Освежи</string>
+    <string name="drawer_open_desc">Навигациона фиока је отворена</string>
+    <string name="drawer_closed_desc">Навигациона фиока је затворена</string>
+    <string name="no_results">Нема нађених стихова за ову нумеру</string>
+    <string name="connection_error">Не могу да се повежем.</string>
+    <string name="search_ab_title">Претрага: %s</string>
+    <string name="no_refresh">Није потребно освежавање</string>
+    <string name="search_hint">Тражи</string>
+    <string name="cover_art_desc">Омот</string>
+    <string name="search_no_result">Нема резултата</string>
+    <string name="beam_txt">Да пошаљем ове стихове?</string>
+    <string name="pref_20min_ignore">Занемари дуге нумере</string>
+    <string name="pref_20min_ignore_sum">Нумере дуже од 20 минута (нпр. подкасти) се не сматрају песмама</string>
+    <string name="pref_scrobbling_category">Скробловање</string>
+    <string name="pref_about">О програму</string>
+    <string name="pref_about_summary">Још о Брзом стиху</string>
+    <string name="local_title">Сачувани стихови</string>
+    <string name="settings_title">Поставке</string>
+    <string name="save_action">Сачувај</string>
+    <string name="lyrics_saved">Стихови сачувани</string>
+    <string name="lyrics_removed">Стихови уклоњени из складишта</string>
+    <string name="remove_action">Обриши</string>
+    <string name="pref_auto_refresh_title">Аутоматско освежавање</string>
+    <string name="pref_auto_refresh_summary">Стихови ће бити аутоматски освежени при промени песме</string>
+    <string name="select_all_action">Изабери све</string>
+    <string name="unselect_all_action">Поништи избор</string>
+    <string name="sort_action">Поређај</string>
+    <string name="sort_dialog_title">Ређање…</string>
+    <string name="local_empty_database">Немате сачуваних стихова.</string>
+    <string name="pref_animations_title">Омогући анимације</string>
+    <string name="pref_animations_sum">Може да узрокује проблеме са перформансама на старијим уређајима</string>
+    <string name="pref_look_feel_category">Изглед и осећај</string>
+    <string name="welcome">Добро дошли у Брзи стих!</string>
+    <string name="welcome2_sub">Стихови које сте тражили…\nОвде, сада.</string>
+    <string name="refresh_desc">Кад се промени песма…</string>
+    <string name="refresh_desc_sub">Тапните ово дугме. Брзи стих ће да уради остало.</string>
+    <string name="drawer_desc">Истражимо даље!</string>
+    <string name="drawer_desc_sub">Да приступите осталим функцијама, тапните овде (или превуците екран са ивице).</string>
+    <string name="pref_more_category">Још</string>
+    <string name="share_prompt">Увези са Шазам/Саундхаунд</string>
+    <!-- TODO: translate ! -->
+    <string name="undo">Врати</string>
+    <!-- TODO: translate ! -->
+    <string name="about_dialog_content">
+Брзи стих је лиценциран под ГНУовом Мањом општом јавном лиценцом издања 3 (ЛГПЛв3)
+\n Пуна копија лиценце је доступна овде: https://github.com/geecko86/QuickLyric/blob/master/LICENSE
+\n The Software is provided to you after paying a licence and on an "AS IS" basis, without any technical support or warranty of any kind including, without limitation, any warranty or condition of merchantability, fitness for a particular purpose and non-infringement.
+\n
+\n-------------------------------------
+\n
+\nСтихове обезбеђују AZLyrics, LyricsWiki и Genius.com. Претрагу обезбеђује Genius.com.\n
+\n
+Услови сервиса су доступни на:
+\n	Genius.com:
+\n      http://genius.com/static/terms
+\n	AZLyrics:
+\n      http://www.azlyrics.com/copyright.html
+\n	LyricWikia:
+\n      http://lyrics.wikia.com/LyricWiki:Copyrights
+\n
+\nThe lyrics provided via this app are property of their respective owners. Please investigate each track individually for copyright information.
+\nIf you believe QuickLyric uses your work in a way that doesn\'t qualify as Fair Use, please contact me via the GitHub page.
+\nApp is developed by geecko. Sources available at github.com/geecko86/QuickLyric under the GPLv3 license
+\n-------------------------------------
+\nОмоте албуме обезбеђује ЛастФМ као део ЛастФМ-ове лиценце некомерцијалне употребе 
+\n-------------------------------------
+\n- Трикови клизања од Романа Нјурика (Roman Nurik)
+\n
+\n          Copyright 2013 Google Inc.
+\n
+\n          Licensed under the Apache License, Version 2.0 (the "License");
+\n          you may not use this file except in compliance with the License.
+\n          You may obtain a copy of the License at
+\n
+\n              http://www.apache.org/licenses/LICENSE-2.0
+\n
+\n          Unless required by applicable law or agreed to in writing, software
+\n          distributed under the License is distributed on an "AS IS" BASIS,
+\n          WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+\n          See the License for the specific language governing permissions and
+\n          limitations under the License.
+\n
+\n-------------------------------------
+\n- Андроидове библиотеке подршке (AOSP)
+\n- Volley библиотека мреже (AOSP)
+\n- ViewPager индикатор (Jake Wharton)
+\n
+\n/*
+\n *
+\n * Licensed under the Apache License, Version 2.0 (the "License");
+\n * you may not use this file except in compliance with the License.
+\n * You may obtain a copy of the License at
+\n *
+\n *      http://www.apache.org/licenses/LICENSE-2.0
+\n *
+\n * Unless required by applicable law or agreed to in writing, software
+\n * distributed under the License is distributed on an "AS IS" BASIS,
+\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+\n * See the License for the specific language governing permissions and
+\n * limitations under the License.
+\n */
+\n
+\n-------------------------------------
+\n
+\n - github.com/makovkastar/FloatingActionButton/
+\n
+\n МИТ лиценца (MIT)
+\n
+\nАуторско право © 2014 Александар Мјељњиков (Oleksandr Melnykov)
+\n
+\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+\n
+\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+\n
+\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+\n
+\n-------------------------------------
+\n
+\nИскрено захваљујем следећим људима који су помогли превођењем апликације:
+\nTatiana - руски
+\nMarius - немачки
+\nTheophanis - грчки
+\nGiorgia - италијански
+\nNaofum са Гитхаба - јапански
+\nNathalie - холандски
+\nDominika + Kasia - пољски
+\nYusuf - турски
+\nSonia - арапски
+\nPolaris - мађарски
+\nGurshabad - хинду
+\nМомак којему сам заборавио име + Marcos - португалски</string>
+    <string name="pager_arrow"><![CDATA[>]]></string>
+    <string name="skip">Прескочи</string>
+
+    <string-array name="nav_items">
+        <item>@string/title_lyrics</item>
+        <item>@string/local_title</item>
+        <item>@string/settings_title</item>
+    </string-array>
+    <string-array name="sort_modes">
+        <item>по извођачу…</item>
+        <item>по наслову…</item>
+    </string-array>
+    <string-array name="AZ_sort_order">
+        <item>растуће</item>
+        <item>опадајуће</item>
+    </string-array>
+</resources>
