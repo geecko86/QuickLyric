@@ -114,6 +114,7 @@
                 <action android:name="com.jrtstudio.music.metachanged" />
                 <action android:name="com.jrtstudio.AnotherMusicPlayer.metachanged" />
                 <action android:name="com.android.music.metachanged" />
+                <action android:name="com.android.music.playstatechanged" />
                 <action android:name="com.htc.music.metachanged" />
                 <action android:name="com.rdio.android.playstatechanged" />
                 <action android:name="fm.last.android.metachanged" />

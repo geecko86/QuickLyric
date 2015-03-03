@@ -68,6 +68,11 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
         String artist = extras.getString("artist");
         String track = extras.getString("track");
+        boolean isPlaying = extras.getBoolean("playing");
+
+        System.out.println(artist);
+        System.out.println(track);
+        System.out.println(isPlaying);
 
         if (intent.getAction().equals("com.amazon.mp3.metachanged")) {
             artist = extras.getString("com.amazon.mp3.artist");
@@ -81,14 +86,15 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
         SharedPreferences current = context.getSharedPreferences("current_music", Context.MODE_PRIVATE);
 
-        String currentArtist = current.getString("artist", "Michael Jackson");
-        String currentTrack = current.getString("track", "Bad");
+//        String currentArtist = current.getString("artist", "Michael Jackson");
+//        String currentTrack = current.getString("track", "Bad");
 
-        if (!currentArtist.equals(artist) || !currentTrack.equals(track)) {
+//        if (!currentArtist.equals(artist) || !currentTrack.equals(track)) {
 
             SharedPreferences.Editor editor = current.edit();
             editor.putString("artist", artist);
             editor.putString("track", track);
+            editor.putBoolean("playing", isPlaying);
             editor.apply();
 
             mAutoUpdate = mAutoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
@@ -104,11 +110,13 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
             Intent serviceIntent = new Intent(context, NotificationService.class);
             serviceIntent.putExtra("artist", artist);
             serviceIntent.putExtra("track", track);
+            serviceIntent.putExtra("playing", isPlaying);
             if (notificationPref != 0) {
-                context.stopService(serviceIntent);
-                context.startService(serviceIntent);
+                serviceIntent.putExtra("show_notification", isPlaying);
             } else
-                context.stopService(serviceIntent);
-        }
+                serviceIntent.putExtra("show_notification", false);
+
+            context.startService(serviceIntent);
+//        }
     }
 }

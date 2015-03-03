@@ -181,16 +181,19 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                 SharedPreferences current = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
                 String artist = current.getString("artist", "Michael Jackson");
                 String track = current.getString("track", "Bad");
+                boolean isPlaying = current.getBoolean("playing", false);
                 int notificationPref = Integer.valueOf(sharedPreferences.getString("pref_notifications", "0"));
 
                 Intent serviceIntent = new Intent(getActivity(), NotificationService.class);
                 serviceIntent.putExtra("artist", artist);
                 serviceIntent.putExtra("track", track);
+                serviceIntent.putExtra("playing", isPlaying);
                 if (notificationPref != 0) {
-                    getActivity().stopService(serviceIntent);
-                    getActivity().startService(serviceIntent);
+                    serviceIntent.putExtra("show_notification", isPlaying);
                 } else
-                    getActivity().stopService(serviceIntent);
+                    serviceIntent.putExtra("show_notification", false);
+
+                getActivity().startService(serviceIntent);
 
                 break;
         }

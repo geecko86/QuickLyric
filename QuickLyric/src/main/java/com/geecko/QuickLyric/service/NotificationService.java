@@ -74,7 +74,14 @@ public class NotificationService extends IntentService {
             notif.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
         else
             notif.flags |= Notification.FLAG_AUTO_CANCEL;
-        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
-                .notify(0, notif);
+
+        if (intent.getBooleanExtra("show_notification", true))
+            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
+                    .notify(0, notif);
+        else
+            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
+                    .cancel(0);
+
+
 	}
 }
