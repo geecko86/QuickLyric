@@ -22,11 +22,14 @@ package com.geecko.QuickLyric.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
@@ -37,8 +40,9 @@ import android.widget.ListView;
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
+import com.geecko.QuickLyric.service.NotificationService;
 
-public class SettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
+public class SettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     public boolean showTransitionAnim = true;
     public boolean isActiveFragment = false;
@@ -64,6 +68,23 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
             findPreference("pref_hide_notification").setEnabled(false);
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Register listener to check for changed preferences
+        PreferenceManager.getDefaultSharedPreferences(getActivity()).registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // Unregister listener
+        PreferenceManager.getDefaultSharedPreferences(getActivity()).unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -149,5 +170,29 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         } else
             anim = AnimatorInflater.loadAnimator(getActivity(), R.animator.none);
         return anim;
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        switch(key) {
+            case "pref_notifications":
+            case "pref_hide_notification":
+
+                SharedPreferences current = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
+                String artist = current.getString("artist", "Michael Jackson");
+                String track = current.getString("track", "Bad");
+                int notificationPref = Integer.valueOf(sharedPreferences.getString("pref_notifications", "0"));
+
+                Intent serviceIntent = new Intent(getActivity(), NotificationService.class);
+                serviceIntent.putExtra("artist", artist);
+                serviceIntent.putExtra("track", track);
+                if (notificationPref != 0) {
+                    getActivity().stopService(serviceIntent);
+                    getActivity().startService(serviceIntent);
+                } else
+                    getActivity().stopService(serviceIntent);
+
+                break;
+        }
     }
 }

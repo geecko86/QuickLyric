@@ -135,6 +135,11 @@
                 <action android:name="com.nullsoft.winamp.metachanged" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".service.NotificationService"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>
