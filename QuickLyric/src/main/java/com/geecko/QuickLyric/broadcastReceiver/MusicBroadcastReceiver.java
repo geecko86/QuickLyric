@@ -26,6 +26,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -118,7 +119,10 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                 notifBuilder.setContentTitle(context.getString(R.string.app_name));
                 notifBuilder.setContentText(String.format("%s - %s", artist, track));
                 notifBuilder.setContentIntent(pendingIntent);
-                notifBuilder.setPriority(-1);
+                if (sharedPref.getBoolean("pref_hide_notification", false) && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN))
+                    notifBuilder.setPriority(Notification.PRIORITY_MIN);
+                else
+                    notifBuilder.setPriority(-1);
                 Notification notif = notifBuilder.build();
                 if (notificationPref == 2)
                     notif.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;

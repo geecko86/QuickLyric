@@ -23,6 +23,7 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -60,6 +61,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
             }
         };
         findPreference("pref_theme").setOnPreferenceChangeListener(prefChangeListener);
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+            findPreference("pref_hide_notification").setEnabled(false);
     }
 
     @Override
