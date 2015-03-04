@@ -44,6 +44,10 @@
             android:entries="@array/notifications"
             android:entryValues="@array/notifications_values"
             android:defaultValue="0" />
+        <CheckBoxPreference
+            android:key="pref_hide_notification"
+            android:title="@string/pref_hide_notification"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_more_category">

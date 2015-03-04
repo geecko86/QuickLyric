@@ -19,20 +19,16 @@
 
 package com.geecko.QuickLyric.broadcastReceiver;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
 
 import com.geecko.QuickLyric.App;
-import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
+import com.geecko.QuickLyric.service.NotificationService;
 
 public class MusicBroadcastReceiver extends BroadcastReceiver {
 
@@ -72,6 +68,7 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
         String artist = extras.getString("artist");
         String track = extras.getString("track");
+        boolean isPlaying = extras.getBoolean("playing");
 
         if (intent.getAction().equals("com.amazon.mp3.metachanged")) {
             artist = extras.getString("com.amazon.mp3.artist");
@@ -85,14 +82,15 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
 
         SharedPreferences current = context.getSharedPreferences("current_music", Context.MODE_PRIVATE);
 
-        String currentArtist = current.getString("artist", "Michael Jackson");
-        String currentTrack = current.getString("track", "Bad");
+//        String currentArtist = current.getString("artist", "Michael Jackson");
+//        String currentTrack = current.getString("track", "Bad");
 
-        if (!currentArtist.equals(artist) || !currentTrack.equals(track)) {
+//        if (!currentArtist.equals(artist) || !currentTrack.equals(track)) {
 
             SharedPreferences.Editor editor = current.edit();
             editor.putString("artist", artist);
             editor.putString("track", track);
+            editor.putBoolean("playing", isPlaying);
             editor.apply();
 
             mAutoUpdate = mAutoUpdate || sharedPref.getBoolean("pref_auto_refresh", false);
@@ -105,28 +103,16 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
                 forceAutoUpdate(false);
             }
 
+            Intent serviceIntent = new Intent(context, NotificationService.class);
+            serviceIntent.putExtra("artist", artist);
+            serviceIntent.putExtra("track", track);
+            serviceIntent.putExtra("playing", isPlaying);
             if (notificationPref != 0) {
-                Intent activityIntent = new Intent("com.geecko.QuickLyric.getLyrics")
-                        .putExtra("TAGS", new String[]{artist, track});
-                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, activityIntent,
-                        PendingIntent.FLAG_CANCEL_CURRENT);
-                NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(context);
+                serviceIntent.putExtra("show_notification", isPlaying);
+            } else
+                serviceIntent.putExtra("show_notification", false);
 
-                if (sharedPref.getString("pref_theme", "0").equals("0"))
-                    notifBuilder.setColor(context.getResources().getColor(R.color.primary));
-                notifBuilder.setSmallIcon(R.drawable.ic_notif);
-                notifBuilder.setContentTitle(context.getString(R.string.app_name));
-                notifBuilder.setContentText(String.format("%s - %s", artist, track));
-                notifBuilder.setContentIntent(pendingIntent);
-                notifBuilder.setPriority(-1);
-                Notification notif = notifBuilder.build();
-                if (notificationPref == 2)
-                    notif.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-                else
-                    notif.flags |= Notification.FLAG_AUTO_CANCEL;
-                ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
-                        .notify(0, notif);
-            }
-        }
+            context.startService(serviceIntent);
+//        }
     }
 }

@@ -67,6 +67,7 @@
   <string name="defaut_theme">Ámbar (Por defecto)</string>
   <string name="dark_theme">Oscuro</string>
   <string name="pref_notifications_sum">Tenga notificaciones discretas cuando la canción cambia</string>
+  <string name="pref_hide_notification">Ocultar notificaciones</string>
   <string-array name="sort_modes">
     <item>Por artista&#8230;</item>
     <item>Por titulo&#8230;</item>

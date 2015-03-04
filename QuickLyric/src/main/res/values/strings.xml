@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ /**
   ~  * This file is part of QuickLyric
@@ -162,6 +162,7 @@ Terms of service available at:
     <string name="defaut_theme">Amber (Default)</string>
     <string name="dark_theme">Dark</string>
     <string name="pref_notifications_sum">Get a discrete notification when the song changes</string>
+    <string name="pref_hide_notification">Hide notification icon</string>
 
     <string-array name="nav_items">
         <item>@string/title_lyrics</item>
