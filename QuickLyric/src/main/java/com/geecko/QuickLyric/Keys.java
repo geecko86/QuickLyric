@@ -17,5 +17,5 @@ package com.geecko.QuickLyric;
  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class Keys {
-    public static final String lastFM = "8165c668a50fee44f7bbd184a7cd7743";
+    public static final String lastFM = "402bdca12feff2668e36a9aa3c675273";
 }
