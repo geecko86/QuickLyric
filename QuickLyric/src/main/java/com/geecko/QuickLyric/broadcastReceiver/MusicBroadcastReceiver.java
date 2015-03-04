@@ -70,10 +70,6 @@ public class MusicBroadcastReceiver extends BroadcastReceiver {
         String track = extras.getString("track");
         boolean isPlaying = extras.getBoolean("playing");
 
-        System.out.println(artist);
-        System.out.println(track);
-        System.out.println(isPlaying);
-
         if (intent.getAction().equals("com.amazon.mp3.metachanged")) {
             artist = extras.getString("com.amazon.mp3.artist");
             track = extras.getString("com.amazon.mp3.track");
