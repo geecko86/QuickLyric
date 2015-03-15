@@ -29,6 +29,7 @@ import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.lyrics.AZLyrics;
 import com.geecko.QuickLyric.lyrics.Genius;
 import com.geecko.QuickLyric.lyrics.JLyric;
+import com.geecko.QuickLyric.lyrics.Lololyrics;
 import com.geecko.QuickLyric.lyrics.Lyrics;
 import com.geecko.QuickLyric.lyrics.LyricsWiki;
 import com.geecko.QuickLyric.utils.LastFMCorrection;
@@ -105,6 +106,10 @@ public class DownloadTask extends AsyncTask<Object, Object, Lyrics> {
             if (lyrics == null || lyrics.getFlag() == Lyrics.NO_RESULT && correction ||
                     lyrics.getFlag() == Lyrics.NEGATIVE_RESULT || lyrics.getFlag() == Lyrics.ERROR)
                 lyrics = JLyric.fromMetaData(artist, track);
+
+            if (lyrics == null || lyrics.getFlag() == Lyrics.NO_RESULT && correction ||
+                    lyrics.getFlag() == Lyrics.NEGATIVE_RESULT || lyrics.getFlag() == Lyrics.ERROR)
+                lyrics = Lololyrics.fromMetaData(artist, track);
         }
         if (lyrics != null && givenArtist != null && givenTrack != null) {
             lyrics.setOriginalArtist(givenArtist);
