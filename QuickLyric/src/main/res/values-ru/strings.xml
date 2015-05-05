@@ -22,18 +22,18 @@
   <string name="title_lyrics">Текст песни</string>
   <string name="share">Поделиться</string>
   <string name="refresh">перезагрузить</string>
-  <string name="no_results">никакой текст не найден на эту песню </string>
-  <string name="connection_error">Не удается подключиться к Интернету.</string>
+  <string name="no_results">Текст не найден</string>
+  <string name="connection_error">Не удается подключиться к Интернету</string>
   <string name="no_refresh">Бесполезно перезагрузить</string>
   <string name="search_hint">Поиск</string>
   <string name="search_no_result">Ничего не найденo</string>
   <string name="beam_txt">Отправить этoт текст?</string>
   <string name="pref_20min_ignore">Игнорировать длинные песни</string>
-  <string name="pref_20min_ignore_sum">Песни дольше чем 20 минут блокированны</string>
-  <string name="pref_about">Oб этом</string>
+  <string name="pref_20min_ignore_sum">Не загружать текст песен дольше 20 минут</string>
+  <string name="pref_about">O приложении</string>
   <string name="pref_about_summary">Больше информации о  Quicklyric</string>
-  <string name="local_title">Текст сохранён</string>
-  <string name="settings_title">Варианты</string>
+  <string name="local_title">Сохранённые</string>
+  <string name="settings_title">Параметры</string>
   <string name="save_action">Cохранить</string>
   <string name="lyrics_saved">Текст сохранён</string>
   <string name="lyrics_removed">Текст удалён</string>
@@ -43,8 +43,8 @@
   <string name="select_all_action">Выбрать всё</string>
   <string name="unselect_all_action">Отменить всё</string>
   <string name="sort_action">Сортировать</string>
-  <string name="sort_dialog_title">Сортируй&#8230;</string>
-  <string name="local_empty_database">Вы ещё не сохранили текст</string>
+  <string name="sort_dialog_title">Сортировать&#8230;</string>
+  <string name="local_empty_database">Вы ещё не сохранили ни одного текста</string>
   <string name="pref_animations_title">Включить анимацию</string>
   <string name="pref_animations_sum">Это может сделать приложение менее подвижным</string>
   <string name="pref_look_feel_category">внешний вид</string>
@@ -64,7 +64,7 @@
   <string name="skip">Пропустить</string>
   <string name="pref_theme">Тема</string>
   <string name="pref_notifications">Уведомления</string>
-  <string name="defaut_theme">Янтарь (По умолчанию)</string>
+  <string name="defaut_theme">Янтарь (по умолчанию)</string>
   <string name="dark_theme">Тёмная</string>
   <string name="pref_notifications_sum">Получить тактичное уведомление при смене песни</string>
   <string name="pref_auto_save">Автоматически сохранять тексты</string>
@@ -73,7 +73,7 @@
   <string name="pref_night_mode_sum">Отображать тёмный фон ночью</string>
   <string name="scan_action">Сканировать Фонотеку</string>
   <string name="warning">Предупреждение</string>
-  <string name="content_providers_title">Сканировать музыку из&#8230;</string>
+  <string name="content_providers_title">Сканировать музыку в&#8230;</string>
   <string name="dl_progress">Скачивание текстов&#8230; %1$d/%2$d</string>
   <string name="dl_finished">Скачивание закончено</string>
   <string name="pref_providers">Дополнительные источники текстов</string>
@@ -82,25 +82,25 @@
   <string name="pref_contribute">Внести свой вклад на GitHub</string>
   <string name="pref_contribute_sum">Улучшить переводы, увеличить каталог текстов&#8230;</string>
   <string name="pref_beta">Стать бета-тестером</string>
-  <string name="pref_beta_sum">Получить обновления (новые возможности, исправления ошибок...) быстрее и сообщать по электронной почте</string>
+  <string name="pref_beta_sum">Получать обновления (новые возможности, исправления ошибок...) быстрее и сообщать по электронной почте</string>
   <string name="scan_error_no_content">Музыка не найдена</string>
   <string name="no_results_why"><u>Почему?</u></string>
   <string name="why_popup_text"><![CDATA[Вы искали текст "%1$s" исполнителя %2$s. К сожалению QuickLyric не смог его найти… <br/><br/>
 Возможные причины:<br/>
 <br/>
-• У Вашей музыки правильно установлены <strong>теги</strong>? QuickLyric не распознаёт песни без тегов.<br/>
+• У вашей музыки правильно установлены <strong>теги</strong>? QuickLyric не распознаёт песни без тегов.<br/>
 • Проверьте подключение к интернету.<br/>
 • Возможно, песни нет в популярных каталогах. Попробуйте включить <strong>дополнительные источники</strong> в настройках.<br/>
 • Возможно, вы столкнулись с ошибкой. Пожалуйста, напишите об этом на почту.<br/>
-• Наконец, текст данной песни может быть недоступен. Если у Вас есть предложения насчёт пополнения каталога текстов, напишите на почту. <br/>]]></string>
+• Наконец, текст данной песни может быть недоступен. Если у вас есть предложения насчёт пополнения каталога текстов, напишите на почту. <br/>]]></string>
   <string name="why_popup_title">Почему не работает?</string>
   <string name="download_category">Загрузок</string>
   <string name="wearable_prompt">Открыть на носимых устройствах</string>
   <string name="pref_opendyslexic">Использовать шрифт OpenDyslexic</string>
-  <string name="pref_opendyslexic_sum">Используйте специальный шрифт для читателей с ограниченными возможностями чтения</string>
+  <string name="pref_opendyslexic_sum">Использовать специальный шрифт для читателей с ограниченными возможностями чтения</string>
   <string name="wrong_musicID">Неподдерживаемый сервис MusicID</string>
   <string name="pref_issues_sum">quicklyricapp@Gmail.com (только на английском языке)</string>
-  <string name="ignore_id3_toast">Нажмите на «Обновить», чтобы загрузить</string>
+  <string name="ignore_id3_toast">Нажмите «Обновить», чтобы загрузить</string>
   <string name="from_id3">(Текст, извлеченный из аудио файла)</string>
   <string name="pandora_warning">Предупреждение: радио сервисы как Pandora® не считаются музыкальными проигрывателями и не работают с QuickLyric</string>
   <string-array name="sort_modes">
@@ -120,12 +120,12 @@
     <item>Музыка Болливуда</item>
   </string-array>
   <string-array name="notifications">
-    <item>Отключено (По умолчанию)</item>
+    <item>Отключено (по умолчанию)</item>
     <item>Включено</item>
-    <item>Включено (Липкий)</item>
+    <item>Включено (липкие)</item>
   </string-array>
   <string-array name="URI_labels">
-    <item>Это устройство</item>
-    <item>Ваша библиотека Google Play Music</item>
+    <item>Этом устройстве</item>
+    <item>Вашей библиотеке Google Play Music</item>
   </string-array>
 </resources>
