@@ -131,19 +131,21 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     public static void sendIntent(Context context, Intent intent) {
-        if (broadcastReceiver != null)
+        if (broadcastReceiver != null) {
             broadcastReceiver.onReceive(context, intent);
+        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (mLyrics != null)
+        if (mLyrics != null) {
             try {
                 outState.putByteArray("lyrics", mLyrics.toBytes());
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
         View searchView = getActivity().findViewById(R.id.search_view);
         if (searchView instanceof SearchView) {
             outState.putString("searchQuery", ((SearchView) searchView).getQuery().toString());
@@ -167,19 +169,20 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         setRetainInstance(true);
         setHasOptionsMenu(true);
         View layout = inflater.inflate(R.layout.lyrics_view, container, false);
-        if (savedInstanceState != null)
+        if (savedInstanceState != null) {
             try {
                 Lyrics l = Lyrics.fromBytes(savedInstanceState.getByteArray("lyrics"));
-                if (l != null)
+                if (l != null) {
                     this.mLyrics = l;
+                }
                 mSearchQuery = savedInstanceState.getString("searchQuery");
                 mSearchFocused = savedInstanceState.getBoolean("searchFocused");
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        else {
+        } else {
             Bundle args = getArguments();
-            if (args != null)
+            if (args != null) {
                 try {
                     Lyrics lyrics = Lyrics.fromBytes(args.getByteArray("lyrics"));
                     this.mLyrics = lyrics;
@@ -194,6 +197,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
+            }
         }
         if (layout != null) {
             Bundle args = savedInstanceState != null ? savedInstanceState : getArguments();
@@ -237,12 +241,14 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             refreshFab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!mRefreshLayout.isRefreshing())
+                    if (!mRefreshLayout.isRefreshing()) {
                         fetchCurrentLyrics(true);
+                    }
                 }
             });
-            if (args != null)
+            if (args != null) {
                 refreshFab.setEnabled(args.getBoolean("refreshFabEnabled", true));
+            }
 
             mScrollView = (NestedScrollView) layout.findViewById(R.id.scrollview);
             mRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout);
@@ -272,19 +278,23 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             editTagsButton.setOnClickListener(startEditClickListener);
 
             if (mLyrics == null) {
-                if (!startEmpty)
+                if (!startEmpty) {
                     fetchCurrentLyrics(false);
+                }
             } else if (mLyrics.getFlag() == Lyrics.SEARCH_ITEM) {
                 mRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_layout);
                 startRefreshAnimation();
-                if (mLyrics.getArtist() != null)
+                if (mLyrics.getArtist() != null) {
                     fetchLyrics(mLyrics.getArtist(), mLyrics.getTrack());
+                }
                 ((TextView) (getActivity().findViewById(R.id.artist))).setText(mLyrics.getArtist());
                 ((TextView) (getActivity().findViewById(R.id.song))).setText(mLyrics.getTrack());
             } else //Rotation, resume
+            {
                 update(mLyrics, layout, false);
+            }
         }
-        if (broadcastReceiver == null)
+        if (broadcastReceiver == null) {
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -297,6 +307,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     }
                 }
             };
+        }
         IMMLeaks.fixFocusedViewLeak(getActivity().getApplication());
         return layout;
     }
@@ -306,8 +317,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             editButton.setImageResource(R.drawable.ic_edit_anim);
             ((Animatable) editButton.getDrawable()).start();
-        } else
+        } else {
             editButton.setImageResource(R.drawable.ic_done);
+        }
 
         ((DrawerLayout) ((MainActivity) getActivity()).drawer).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mRefreshLayout.setEnabled(false);
@@ -331,7 +343,6 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         songTV.setBackgroundResource(R.drawable.abc_textfield_search_material);
         artistTV.setBackgroundResource(R.drawable.abc_textfield_search_material);
 
-
         if (songTV.requestFocus()) {
             InputMethodManager imm = (InputMethodManager)
                     getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -344,13 +355,15 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).setImageResource(R.drawable.ic_done_anim);
             Drawable editIcon = ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).getDrawable();
             ((Animatable) editIcon).start();
-        } else
+        } else {
             ((ImageButton) getActivity().findViewById(R.id.edit_tags_btn)).setImageResource(R.drawable.ic_edit);
+        }
 
         if (getActivity().getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm.isAcceptingText())
+            if (imm.isAcceptingText()) {
                 imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+            }
         }
 
         EditText songTV = (EditText) getActivity().findViewById(R.id.song);
@@ -363,8 +376,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         artistTV.setBackgroundColor(Color.TRANSPARENT);
 
         String txt = mLrcThread == null ? null : mLyrics.getText();
-        if (txt == null)
+        if (txt == null) {
             txt = "";
+        }
 
         File musicFile = Id3Reader.getFile(getActivity(), mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack());
 
@@ -375,17 +389,20 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             mLyrics.setTitle(songTV.getText().toString());
             mLyrics.setText(newLyrics.getText().toString().replaceAll("\n", "<br/>"));
             if (PermissionsChecker.requestPermission(getActivity(),
-                    "android.permission.WRITE_EXTERNAL_STORAGE", 0, Id3Writer.REQUEST_CODE))
+                    "android.permission.WRITE_EXTERNAL_STORAGE", 0, Id3Writer.REQUEST_CODE)) {
                 new Id3Writer(this).execute(mLyrics, musicFile);
-        } else
+            }
+        } else {
             new Id3Writer(this).onPreExecute();
+        }
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (this.isHidden())
+        if (this.isHidden()) {
             return;
+        }
 
         DrawerAdapter drawerAdapter = ((DrawerAdapter) ((ListView) this.getActivity().findViewById(R.id.drawer_list)).getAdapter());
         if (drawerAdapter.getSelectedItem() != 0) {
@@ -400,46 +417,56 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         super.onHiddenChanged(hidden);
         if (!hidden) {
             this.onViewCreated(getView(), null);
-            if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT && lyricsPresentInDB)
+            if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT && lyricsPresentInDB) {
                 new PresenceChecker().execute(this, new String[]{mLyrics.getArtist(), mLyrics.getTrack(),
                         mLyrics.getOriginalArtist(), mLyrics.getOriginalTrack()});
-        } else
+            }
+        } else {
             this.isActiveFragment = false;
+        }
     }
 
     public void startRefreshAnimation() {
-        if (mRefreshLayout == null)
-            if (getActivity() != null && getView() != null)
+        if (mRefreshLayout == null) {
+            if (getActivity() != null && getView() != null) {
                 mRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.refresh_layout);
-        if (mRefreshLayout != null)
+            }
+        }
+        if (mRefreshLayout != null) {
             mRefreshLayout.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (!mRefreshLayout.isRefreshing())
+                    if (!mRefreshLayout.isRefreshing()) {
                         mRefreshLayout.setRefreshing(true);
+                    }
                 }
             });
+        }
     }
 
     public void stopRefreshAnimation() {
-        if (mRefreshLayout == null)
-            if (getActivity() != null && getView() != null)
+        if (mRefreshLayout == null) {
+            if (getActivity() != null && getView() != null) {
                 mRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.refresh_layout);
-        if (mRefreshLayout != null)
+            }
+        }
+        if (mRefreshLayout != null) {
             mRefreshLayout.post(new Runnable() {
                 @Override
                 public void run() {
                     mRefreshLayout.setRefreshing(false);
                 }
             });
+        }
     }
 
     public void fetchLyrics(String... params) {
         String artist = params[0];
         String title = params[1];
         String url = null;
-        if (params.length > 2)
+        if (params.length > 2) {
             url = params[2];
+        }
         startRefreshAnimation();
 
         Lyrics lyrics = null;
@@ -450,14 +477,17 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     !("Storage".equals(mLyrics.getSource())
                             && mLyrics.getArtist().equalsIgnoreCase(artist)
                             && mLyrics.getTrack().equalsIgnoreCase(title))
-            ))
+            )) {
                 lyrics = Id3Reader.getLyrics(getActivity(), artist, title);
+            }
 
-            if (lyrics == null)
+            if (lyrics == null) {
                 lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, new String[]{artist, title});
+            }
 
-            if (lyrics == null)
+            if (lyrics == null) {
                 lyrics = DatabaseHelper.get(((MainActivity) getActivity()).database, DownloadThread.correctTags(artist, title));
+            }
         } else if (url == null) {
             showFirstStart();
             return;
@@ -467,8 +497,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (OnlineAccessVerifier.check(getActivity()) && (lyrics == null || (!lyrics.isLRC() && prefLRC))) {
             Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(getActivity())
                     .getStringSet("pref_providers", new TreeSet<String>());
-            if (PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("pref_lrc", false))
+            if (PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("pref_lrc", false)) {
                 providersSet.add("ViewLyrics");
+            }
             DownloadThread.setProviders(providersSet);
 
             if (mLyrics == null) {
@@ -482,15 +513,16 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     .getSharedPreferences("current_music", Context.MODE_PRIVATE);
             boolean positionAvailable = preferences.getLong("position", 0) != -1;
 
-            if (url == null)
+            if (url == null) {
                 new DownloadThread(this, positionAvailable, artist, title).start();
-            else
+            } else {
                 new DownloadThread(this, positionAvailable, url, artist, title).start();
+            }
 
             new UpdateChecker.UpdateCheckTask(this).execute();
-        } else if (lyrics != null)
+        } else if (lyrics != null) {
             onLyricsDownloaded(lyrics);
-        else {
+        } else {
             lyrics = new Lyrics(Lyrics.ERROR);
             lyrics.setArtist(artist);
             lyrics.setTitle(title);
@@ -501,10 +533,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     public void fetchCurrentLyrics(boolean showMsg) {
         searchResultLock = false;
         getActivity().findViewById(R.id.edit_tags_btn).setEnabled(false);
-        if (mLyrics != null && mLyrics.getArtist() != null && mLyrics.getTrack() != null)
+        if (mLyrics != null && mLyrics.getArtist() != null && mLyrics.getTrack() != null) {
             new ParseTask(this, showMsg, false).execute(mLyrics);
-        else
+        } else {
             new ParseTask(this, showMsg, false).execute((Object) null);
+        }
     }
 
     @TargetApi(16)
@@ -533,10 +566,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
     @Override
     public void onLyricsDownloaded(Lyrics lyrics) {
-        if (getActivity() != null && !((MainActivity) getActivity()).hasBeenDestroyed() && getView() != null)
+        if (getActivity() != null && !((MainActivity) getActivity()).hasBeenDestroyed() && getView() != null) {
             update(lyrics, getView(), true);
-        else
+        } else {
             mLyrics = lyrics;
+        }
     }
 
     public void update(Lyrics lyrics, View layout, boolean animation) {
@@ -550,63 +584,73 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         boolean artCellDownload =
                 Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(getActivity())
                         .getString("pref_artworks", "0")) == 0;
-        if (cover == null && (artCellDownload || OnlineAccessVerifier.isConnectedWifi(getActivity())))
+        if (cover == null && (artCellDownload || OnlineAccessVerifier.isConnectedWifi(getActivity()))) {
             new CoverArtLoader().execute(lyrics, this.getActivity());
+        }
         getActivity().findViewById(R.id.edit_tags_btn).setEnabled(true);
         getActivity().findViewById(R.id.edit_tags_btn)
                 .setVisibility(musicFile == null || lyrics.isLRC() ? View.GONE : View.VISIBLE);
         TextSwitcher textSwitcher = ((TextSwitcher) layout.findViewById(R.id.switcher));
         LrcView lrcView = (LrcView) layout.findViewById(R.id.lrc_view);
         View v = getActivity().findViewById(R.id.tracks_msg);
-        if (v != null)
+        if (v != null) {
             ((ViewGroup) v.getParent()).removeView(v);
+        }
         TextView artistTV = (TextView) getActivity().findViewById(R.id.artist);
         TextView songTV = (TextView) getActivity().findViewById(R.id.song);
         TextView id3TV = (TextView) layout.findViewById(R.id.id3_tv);
         RelativeLayout bugLayout = (RelativeLayout) layout.findViewById(R.id.error_msg);
         this.mLyrics = lyrics;
-        if (SDK_INT >= ICE_CREAM_SANDWICH)
+        if (SDK_INT >= ICE_CREAM_SANDWICH) {
             beamLyrics(lyrics, this.getActivity());
+        }
         new PresenceChecker().execute(this, new String[]{lyrics.getArtist(), lyrics.getTrack(),
                 lyrics.getOriginalArtist(), lyrics.getOriginalTrack()});
 
-        if (lyrics.getArtist() != null)
+        if (lyrics.getArtist() != null) {
             artistTV.setText(lyrics.getArtist());
-        else
+        } else {
             artistTV.setText("");
-        if (lyrics.getTrack() != null)
+        }
+        if (lyrics.getTrack() != null) {
             songTV.setText(lyrics.getTrack());
-        else
+        } else {
             songTV.setText("");
-        if (isActiveFragment)
+        }
+        if (isActiveFragment) {
             ((RefreshIcon) getActivity().findViewById(R.id.refresh_fab)).show();
+        }
         EditText newLyrics = (EditText) getActivity().findViewById(R.id.edit_lyrics);
-        if (newLyrics != null)
+        if (newLyrics != null) {
             newLyrics.setText("");
+        }
 
         if (lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
             if (!lyrics.isLRC()) {
                 textSwitcher.setVisibility(View.VISIBLE);
                 lrcView.setVisibility(View.GONE);
-                if (animation)
+                if (animation) {
                     textSwitcher.setText(Html.fromHtml(lyrics.getText()));
-                else
+                } else {
                     textSwitcher.setCurrentText(Html.fromHtml(lyrics.getText()));
+                }
             } else {
                 textSwitcher.setVisibility(View.GONE);
                 lrcView.setVisibility(View.VISIBLE);
                 lrcView.setOriginalLyrics(lyrics);
                 lrcView.setSourceLrc(lyrics.getText());
-                if (isActiveFragment)
+                if (isActiveFragment) {
                     ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar)).expandToolbar(true);
+                }
                 updateLRC();
             }
 
             bugLayout.setVisibility(View.INVISIBLE);
-            if ("Storage".equals(lyrics.getSource()))
+            if ("Storage".equals(lyrics.getSource())) {
                 id3TV.setVisibility(View.VISIBLE);
-            else
+            } else {
                 id3TV.setVisibility(View.GONE);
+            }
             mScrollView.post(new Runnable() {
                 @Override
                 public void run() {
@@ -614,6 +658,12 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     mScrollView.smoothScrollTo(0, 0);
                 }
             });
+
+            //if we indeed have a cover, recycle it explicitly to avoid OOM
+            if (cover != null) {
+                cover.recycle();
+                cover = null;
+            }
         } else {
             textSwitcher.setText("");
             textSwitcher.setVisibility(View.INVISIBLE);
@@ -644,8 +694,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         stopRefreshAnimation();
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         ViewGroup parent = (ViewGroup) ((ViewGroup) getActivity().findViewById(R.id.scrollview)).getChildAt(0);
-        if (parent.findViewById(R.id.tracks_msg) == null)
+        if (parent.findViewById(R.id.tracks_msg) == null) {
             inflater.inflate(R.layout.no_tracks, parent);
+        }
 
         TypedValue typedValue = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.firstLaunchCoverDrawable, typedValue, true);
@@ -685,10 +736,11 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
         if (switcher != null) {
             switcher.setKeepScreenOn(screenOn);
-            if (switcher.getCurrentView() != null)
+            if (switcher.getCurrentView() != null) {
                 ((TextView) switcher.getCurrentView()).setTypeface(
                         LyricsTextFactory.FontCache.get(dyslexic ? "dyslexic" : "light", getActivity())
                 );
+            }
             View nextView = switcher.getNextView();
             if (nextView != null) {
                 ((TextView) nextView).setTypeface(
@@ -696,8 +748,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 );
             }
         }
-        if (lrcView != null)
+        if (lrcView != null) {
             lrcView.setKeepScreenOn(screenOn);
+        }
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         TypedValue outValue = new TypedValue();
         MainActivity mainActivity = (MainActivity) getActivity();
@@ -758,18 +811,21 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 MaterialSuggestionsSearchView suggestionsSearchView =
                         (MaterialSuggestionsSearchView) getActivity()
                                 .findViewById(R.id.material_search_view);
-                if (suggestionsSearchView.isSearchOpen())
+                if (suggestionsSearchView.isSearchOpen()) {
                     ((ControllableAppBarLayout) getActivity().findViewById(R.id.appbar))
                             .expandToolbar(true);
+                }
                 break;
             case R.id.save_action:
-                if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT)
+                if (mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
                     new WriteToDatabaseTask().execute(this, item, this.mLyrics);
+                }
                 break;
             case R.id.convert_action:
                 LrcView lrcView = (LrcView) getActivity().findViewById(R.id.lrc_view);
-                if (lrcView != null && lrcView.dictionnary != null)
+                if (lrcView != null && lrcView.dictionnary != null) {
                     update(lrcView.getStaticLyrics(), getView(), true);
+                }
         }
         return false;
     }
@@ -779,15 +835,17 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         final MainActivity mainActivity = (MainActivity) getActivity();
         Animator anim = null;
         if (showTransitionAnim) {
-            if (nextAnim != 0)
+            if (nextAnim != 0) {
                 anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
+            }
             showTransitionAnim = false;
-            if (anim != null)
+            if (anim != null) {
                 anim.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationEnd(Animator animator) {
-                        if (mainActivity.drawer instanceof DrawerLayout)
+                        if (mainActivity.drawer instanceof DrawerLayout) {
                             ((DrawerLayout) mainActivity.drawer).closeDrawer(mainActivity.drawerView);
+                        }
                         mainActivity.setDrawerListener(true);
                     }
 
@@ -804,8 +862,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     public void onAnimationRepeat(Animator animator) {
                     }
                 });
-        } else
+            }
+        } else {
             anim = AnimatorInflater.loadAnimator(getActivity(), R.animator.none);
+        }
         return anim;
     }
 
@@ -818,8 +878,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         toolbarLayout.setTitle(getString(R.string.app_name));
 
         if (((DrawerLayout) mainActivity.drawer) // drawer is locked
-                .getDrawerLockMode(mainActivity.drawerView) == DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                .getDrawerLockMode(mainActivity.drawerView) == DrawerLayout.LOCK_MODE_LOCKED_CLOSED) {
             return;
+        }
 
         inflater.inflate(R.menu.lyrics, menu);
         // Get the SearchView and set the searchable configuration
@@ -850,8 +911,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (!materialSearchView.hasSuggestions())
+                if (!materialSearchView.hasSuggestions()) {
                     materialSearchView.setSuggestions(materialSearchView.getHistory());
+                }
                 return true;
             }
         });
@@ -875,26 +937,28 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         if (!materialSearchView.isSearchOpen() && mExpandedSearchView) {
             materialSearchView.showSearch();
             mExpandedSearchView = false;
-        } else if (!mExpandedSearchView)
+        } else if (!mExpandedSearchView) {
             materialSearchView.closeSearch();
+        }
 
         materialSearchView.setHint(getString(R.string.search_hint));
         if (mSearchQuery != null && !mSearchQuery.equals("")) {
             searchItem.expandActionView();
             materialSearchView.setQuery(mSearchQuery, false);
-            if (mSearchFocused)
+            if (mSearchFocused) {
                 materialSearchView.requestFocus();
-            else
+            } else {
                 materialSearchView.clearFocus();
+            }
             mSearchQuery = null;
         }
 
         MenuItem saveMenuItem = menu.findItem(R.id.save_action);
         if (saveMenuItem != null) {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            if (mLyrics == null)
+            if (mLyrics == null) {
                 saveMenuItem.setVisible(false);
-            else if (mLyrics.getFlag() == Lyrics.POSITIVE_RESULT
+            } else if (mLyrics.getFlag() == Lyrics.POSITIVE_RESULT
                     && sharedPref.getBoolean("pref_auto_save", true)) {
                 String[] metadata = new String[]{
                         mLyrics.getArtist(),
@@ -913,14 +977,17 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
         }
         MenuItem resyncMenuItem = menu.findItem(R.id.resync_action);
         MenuItem convertMenuItem = menu.findItem(R.id.convert_action);
-        if (resyncMenuItem != null)
+        if (resyncMenuItem != null) {
             resyncMenuItem.setVisible(mLyrics != null && mLyrics.isLRC());
-        if (convertMenuItem != null)
+        }
+        if (convertMenuItem != null) {
             convertMenuItem.setVisible(mLyrics != null && mLyrics.isLRC());
+        }
 
         MenuItem shareMenuItem = menu.findItem(R.id.share_action);
-        if (shareMenuItem != null)
+        if (shareMenuItem != null) {
             shareMenuItem.setVisible(mLyrics != null && mLyrics.getFlag() == Lyrics.POSITIVE_RESULT && mLyrics.getURL() != null);
+        }
     }
 
     @Override
@@ -934,16 +1001,19 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
     public void setCoverArt(String url, FadeInNetworkImageView coverView) {
         MainActivity mainActivity = (MainActivity) getActivity();
-        if (mainActivity == null)
+        if (mainActivity == null) {
             return;
+        }
         mainActivity.findViewById(R.id.top_gradient).setVisibility(View.VISIBLE);
         mainActivity.findViewById(R.id.bottom_gradient).setVisibility(View.VISIBLE);
-        if (coverView == null)
+        if (coverView == null) {
             coverView = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
+        }
         if (mLyrics != null) {
             mLyrics.setCoverURL(url);
-            if (url == null)
+            if (url == null) {
                 url = "";
+            }
             coverView.setLyrics(mLyrics);
             coverView.clearColorFilter();
             coverView.setImageUrl(url,
@@ -953,12 +1023,15 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
     public void setCoverArt(Bitmap cover, FadeInNetworkImageView coverView) {
         MainActivity mainActivity = (MainActivity) getActivity();
-        if (mainActivity == null)
+        if (mainActivity == null) {
             return;
-        if (coverView == null)
+        }
+        if (coverView == null) {
             coverView = (FadeInNetworkImageView) mainActivity.findViewById(R.id.cover);
-        if (coverView != null)
+        }
+        if (coverView != null) {
             coverView.setLocalImageBitmap(cover);
+        }
         coverView.clearColorFilter();
         getActivity().findViewById(R.id.top_gradient).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.bottom_gradient).setVisibility(View.VISIBLE);
@@ -978,11 +1051,13 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     private Runnable lrcUpdater = new Runnable() {
         @Override
         public void run() {
-            if (threadCancelled)
+            if (threadCancelled) {
                 return;
+            }
             boolean ran = false;
-            if (getActivity() == null)
+            if (getActivity() == null) {
                 return;
+            }
             SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
             long position = preferences.getLong("position", 0);
             if (position == -1 && getActivity() != null) {
@@ -1001,9 +1076,10 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     @Override
                     public void run() {
                         Activity activity = LyricsViewFragment.this.getActivity();
-                        if (activity != null)
+                        if (activity != null) {
                             ((LrcView) activity.findViewById(R.id.lrc_view))
                                     .changeCurrent(finalPosition);
+                        }
                     }
                 });
             }
@@ -1013,14 +1089,16 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                     preferences.getString("track", "").equalsIgnoreCase(mLyrics.getOriginalTrack()) &&
                     preferences.getString("artist", "").equalsIgnoreCase(mLyrics.getOriginalArtist()) &&
                     preferences.getBoolean("playing", true)) {
-                if (threadCancelled)
+                if (threadCancelled) {
                     return;
+                }
                 ran = true;
                 position = preferences.getLong("position", 0);
                 long startTime = preferences.getLong("startTime", System.currentTimeMillis());
                 long distance = System.currentTimeMillis() - startTime;
-                if (preferences.getBoolean("playing", true))
+                if (preferences.getBoolean("playing", true)) {
                     position += distance;
+                }
                 final long finalPosition = position;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -1038,15 +1116,17 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 }
             }
             MusicBroadcastReceiver.forceAutoUpdate(true);
-            if (preferences.getBoolean("playing", true) && ran && mLyrics.isLRC() && getActivity() != null)
+            if (preferences.getBoolean("playing", true) && ran && mLyrics.isLRC() && getActivity() != null) {
                 fetchCurrentLyrics(false);
+            }
         }
     };
 
     public void updateSearchView(boolean collapsed, String query, boolean focused) {
         this.mExpandedSearchView = !collapsed;
-        if (query != null)
+        if (query != null) {
             this.mSearchQuery = query;
+        }
         this.mSearchFocused = focused;
         getActivity().invalidateOptionsMenu();
     }
