@@ -90,8 +90,8 @@ public class NotificationUtil {
         context.setTheme(themes[themeNum]);
 
         notifBuilder.setSmallIcon(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? R.drawable.ic_notif : R.drawable.ic_notif4)
-                .setContentTitle(context.getString(R.string.app_name))
-                .setContentText(String.format("%s - %s", artist, track))
+                .setContentTitle(track)
+                .setContentText(artist)
                 .setContentIntent(prefOverlay ? overlayPending : openAppPending)
                 .setVisibility(-1) // Notification.VISIBILITY_SECRET
                 .setGroup("Lyrics_Notification")
@@ -100,8 +100,8 @@ public class NotificationUtil {
                 .setGroupSummary(true);
 
         wearableNotifBuilder.setSmallIcon(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? R.drawable.ic_notif : R.drawable.ic_notif4)
-                .setContentTitle(context.getString(R.string.app_name))
-                .setContentText(String.format("%s - %s", artist, track))
+                .setContentTitle(track)
+                .setContentText(artist)
                 .setContentIntent(openAppPending)
                 .setVisibility(-1) // Notification.VISIBILITY_SECRET
                 .setGroup("Lyrics_Notification")

@@ -87,8 +87,8 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
         mContext.setTheme(themes[themeNum]);
 
         notifBuilder.setSmallIcon(R.drawable.ic_notif)
-                .setContentTitle(mContext.getString(R.string.app_name))
-                .setContentText(String.format("%s - %s", lyrics.getArtist(), lyrics.getTitle()))
+                .setContentTitle(lyrics.getTitle())
+                .setContentText(lyrics.getArtist())
                 .setStyle(bigStyle)
                 .setGroup("Lyrics_Notification")
                 .setOngoing(false)
