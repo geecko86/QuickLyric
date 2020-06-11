@@ -55,6 +55,7 @@ public class EmailConfigGenTool {
                 Build.MODEL,
                 Build.VERSION.SDK_INT,
                 Locale.getDefault().getDisplayLanguage(),
+                "Yes (F-Droid Build)",
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ?
                         NotificationListenerService.isListeningAuthorized(context) ? "Authorized" : "Not Authorized" : "",
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ?
