@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply from: 'chromaprint.gradle'
 
 repositories {
     mavenCentral()
@@ -123,4 +122,3 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.annotation:annotation:1.1.0'
 }
-preBuild.dependsOn(['compileChromaprint'])

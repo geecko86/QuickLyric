@@ -27,18 +27,17 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.preference.PreferenceManager;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+
 import com.geecko.QuickLyric.BuildConfig;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
-import com.geecko.QuickLyric.provider.LyricsChart;
 import com.geecko.QuickLyric.model.Lyrics;
+import com.geecko.QuickLyric.provider.LyricsChart;
 import com.geecko.QuickLyric.services.LyricsOverlayService;
 import com.geecko.QuickLyric.services.ScrobblerService;
-import com.geecko.QuickLyric.utils.Chromaprint;
-import com.geecko.QuickLyric.utils.FingerprintDatabaseHelper;
 import com.geecko.QuickLyric.utils.YoutubeCategoryChecker;
 
 import org.json.JSONArray;
@@ -101,8 +100,6 @@ public class DownloadThread extends Thread {
                 callback.get() : null;
         return new Runnable() {
 
-            Chromaprint.Fingerprint fingerprint = null;
-
             @SuppressWarnings("unchecked")
             public Lyrics download(String url, String artist, String title) {
                 return LyricsChart.fromURL(url, artist, title, LRC);
@@ -110,19 +107,7 @@ public class DownloadThread extends Thread {
 
             @SuppressWarnings("unchecked")
             public Lyrics download(String artist, String title, File musicFile, boolean allowLrc) {
-                Context context = null;
-                if (callback != null) {
-                    context = getContextFromCallback(callback);
-                    if (context != null && musicFile != null)
-                        fingerprint = Chromaprint.getFingerprintForPath(context, musicFile.getAbsolutePath());
-                }
-                Lyrics lyrics = LyricsChart.fromMetaData(artist, title, LRC && allowLrc, fingerprint, player);
-
-                if (context != null && fingerprint != null && lyrics != null && lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
-                    FingerprintDatabaseHelper.getInstance(context.getApplicationContext())
-                            .insertFingerprint(musicFile.getAbsolutePath(), fingerprint.getFingerprint(),
-                                    lyrics.getArtist(), lyrics.getTitle(), fingerprint.getDuration(), artist, title);
-                }
+                Lyrics lyrics = LyricsChart.fromMetaData(artist, title, LRC && allowLrc, player);
                 return lyrics;
             }
 
@@ -189,7 +174,7 @@ public class DownloadThread extends Thread {
                 if (lyrics != null) {
                     Context context = getContextFromCallback(callback);
                     storedResult = String.format(Locale.getDefault(), "%d_%d_%s_%s_%b_%b_%s_%s_%s",
-                            lyrics.getFlag(), lyrics.getErrorCode(), artist, title, musicFile != null && musicFile.exists(), fingerprint != null, lyrics.getArtist(), lyrics.getTitle(), lyrics.getSource());
+                            lyrics.getFlag(), lyrics.getErrorCode(), artist, title, musicFile != null && musicFile.exists(), true, lyrics.getArtist(), lyrics.getTitle(), lyrics.getSource());
                     if (context != null) {
                         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
                         sharedPref.edit().putString("download_result", storedResult).apply();
