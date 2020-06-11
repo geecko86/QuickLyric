@@ -92,16 +92,20 @@ public class LyricsChart {
         try {
             String url = "http://api.chartlyrics.com/apiv1.asmx/SearchLyricText?lyricText=";
             url += URLEncoder.encode(query, "UTF-8");
-            Document doc = Jsoup.parse(url, null);
+            Document doc = Jsoup.parse(Net.getUrlAsString(url));
             Elements elements = doc.getElementsByTag("SearchLyricResult");
-            for (Element element : elements) {
-                String id = element.getElementsByTag("TrackId").get(0).text();
-                String checksum = element.getElementsByTag("TrackChecksum").get(0).text();
-                Lyrics lyrics = new Lyrics(Lyrics.SEARCH_ITEM);
-                lyrics.setArtist(element.getElementsByTag("artist").get(0).text());
-                lyrics.setTitle(element.getElementsByTag("song").get(0).text());
-                lyrics.setURL("http://api.chartlyrics.com/apiv1.asmx/GetLyric?lyricId=" + id + "&lyricCheckSum=" + checksum);
-                results.add(lyrics);
+            for (int i = 0; i < elements.size() - 1; i++) {
+                try {
+                    Element element = elements.get(i);
+                    String id = element.getElementsByTag("TrackId").get(0).text();
+                    String checksum = element.getElementsByTag("lyricchecksum").get(0).text();
+                    Lyrics lyrics = new Lyrics(Lyrics.SEARCH_ITEM);
+                    lyrics.setArtist(element.getElementsByTag("artist").get(0).text());
+                    lyrics.setTitle(element.getElementsByTag("song").get(0).text());
+                    lyrics.setURL("http://api.chartlyrics.com/apiv1.asmx/GetLyric?lyricId=" + id + "&lyricCheckSum=" + checksum);
+                    results.add(lyrics);
+                } catch (Exception ignore) {
+                }
             }
             return results;
         } catch (Exception e) {
