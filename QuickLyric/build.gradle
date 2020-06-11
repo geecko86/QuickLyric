@@ -6,9 +6,6 @@ repositories {
     jcenter()
     google()
     maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots/'
-    }
-    maven {
         url "https://jitpack.io"
     }
 }
@@ -18,11 +15,10 @@ buildscript {
         jcenter()
         mavenCentral()
         maven { url "https://maven.google.com" }
-        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:4.0.0'
     }
 }
 
@@ -35,7 +31,7 @@ android {
         }
     }
     compileSdkVersion 27
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '26.0.3'
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
@@ -59,22 +55,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    signingConfigs {
-
-        release {
-            storeFile file('../../release.keystore')
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASSWORD
-        }
-    }
-
     buildTypes {
         release {
             buildConfigField "Boolean", "REPORT_CRASH", 'true'
             useProguard true
             minifyEnabled true
-            signingConfig signingConfigs.release
             proguardFiles 'proguard-rules.pro', getDefaultProguardFile('proguard-android-optimize.txt')
         }
 
@@ -85,6 +70,7 @@ android {
 
     lintOptions {
         disable 'InvalidPackage', 'UnusedAttribute', 'GradleDynamicVersion', 'MissingQuantity'
+        abortOnError false
     }
 
     aaptOptions {
@@ -92,54 +78,54 @@ android {
     }
 
     gradle.taskGraph.afterTask { Task task, TaskState state ->
-        if (task.name == "packageRelease") {
-            File proguard = new File("QuickLyric/build/outputs/mapping/release/mapping.txt")
-            File target = new File("QuickLyric/mapping/release/mapping-$project.android.defaultConfig.versionCode" + ".txt")
-            target.write(proguard.text)
-        }
+//        if (task.name == "packageRelease") {
+//            File proguard = new File("QuickLyric/build/outputs/mapping/release/mapping.txt")
+//            File target = new File("QuickLyric/mapping/release/mapping-$project.android.defaultConfig.versionCode" + ".txt")
+//            target.write(proguard.text)
+//        }
     }
 }
 
 ext.versions = [
-        supportLib: "27.0.2",
+        supportLib: "27.1.1",
 ]
 
 dependencies {
     //noinspection GradleCompatible
-    compile "com.android.support:support-v4:$versions.supportLib"
-    compile "com.android.support:appcompat-v7:$versions.supportLib"
-    compile "com.android.support:support-v13:$versions.supportLib"
-    compile "com.android.support:design:$versions.supportLib"
-    compile "com.android.support:cardview-v7:$versions.supportLib"
-    compile "com.android.support:percent:$versions.supportLib"
-    compile 'com.android.support:multidex:1.0.2'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.github.medyo:android-about-page:1.+'
-    compile 'com.balysv:material-ripple:1.0.2'
-    compile 'com.github.geecko86:volley:3c99c01'
-    compile 'com.infstory:switch-preference-compat:1.0.0'
-    compile 'me.relex:circleindicator:1.2.2@aar'
-    compile 'com.wdullaer:materialdatetimepicker:1.5.2'
-    compile 'com.miguelcatalan:materialsearchview:1.4.0'
-    compile 'org:jaudiotagger:2.0.3'
-    compile 'org.jsoup:jsoup:1.8.3'
-    compile 'com.github.geecko86:FloatingView:963f080178'
-    compile('com.github.ozodrukh:CircularReveal:2.0.1@aar') { transitive = true }
-    compile 'com.github.zagum:SpeechRecognitionView:1.0.2'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.okhttp3:okhttp:3.7.0'
-    compile 'com.zzhoujay.materialcolors:materialcolors:1.0.0'
-    compile 'com.github.TeamNewPipe:NewPipeExtractor:v0.11.0'
-    compile 'com.github.geecko86:SpotifyApi:6'
+    implementation "com.android.support:support-v4:$versions.supportLib"
+    implementation "com.android.support:appcompat-v7:$versions.supportLib"
+    implementation "com.android.support:support-v13:$versions.supportLib"
+    implementation "com.android.support:design:$versions.supportLib"
+    implementation "com.android.support:cardview-v7:$versions.supportLib"
+    implementation "com.android.support:percent:$versions.supportLib"
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.github.medyo:android-about-page:1.2.5'
+    implementation 'com.balysv:material-ripple:1.0.2'
+    implementation 'com.github.geecko86:volley:3c99c01'
+    implementation 'com.infstory:switch-preference-compat:1.0.0'
+    implementation 'me.relex:circleindicator:1.2.2@aar'
+    implementation 'com.wdullaer:materialdatetimepicker:1.5.2'
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+    implementation 'org:jaudiotagger:2.0.3'
+    implementation 'org.jsoup:jsoup:1.9.2'
+    implementation 'com.github.geecko86:FloatingView:963f080178'
+    implementation('com.github.ozodrukh:CircularReveal:2.0.1@aar') { transitive = true }
+    implementation 'com.github.zagum:SpeechRecognitionView:1.0.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.zzhoujay.materialcolors:materialcolors:1.0.0'
+    implementation 'com.github.TeamNewPipe:NewPipeExtractor:v0.11.0'
+    implementation 'com.github.geecko86:SpotifyApi:6'
 
     /* Debug & testing */
-    testCompile 'junit:junit:4.12'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-    androidTestCompile 'com.android.support.test:runner:1.0.1'
-    androidTestCompile 'com.android.support.test:rules:1.0.1'
-    androidTestCompile "com.android.support:support-annotations:$versions.supportLib"
+    testImplementation 'junit:junit:4.12'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation "com.android.support:support-annotations:$versions.supportLib"
 }
 preBuild.dependsOn(['compileChromaprint'])
