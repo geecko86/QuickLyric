@@ -48,9 +48,9 @@ public class DrawerAdapter extends ArrayAdapter<String> {
         Drawable drawable2 = context.getResources().getDrawable(R.drawable.ic_timer);
         Drawable drawable3 = context.getResources().getDrawable(R.drawable.ic_menu_storage);
         Drawable drawable4 = context.getResources().getDrawable(R.drawable.ic_menu_settings);
-        Drawable drawable5 = context.getResources().getDrawable(R.drawable.ic_send_feedback);
+//        Drawable drawable5 = context.getResources().getDrawable(R.drawable.ic_send_feedback);
         Drawable drawable6 = context.getResources().getDrawable(R.drawable.ic_info);
-        this.drawableArray = new Drawable[]{drawable1, drawable2, drawable3, null, drawable4, drawable5, drawable6};
+        this.drawableArray = new Drawable[]{drawable1, drawable2, drawable3, null, drawable4, drawable6};
     }
 
     @Override
@@ -68,13 +68,9 @@ public class DrawerAdapter extends ArrayAdapter<String> {
                 if (convertView != null) {
                     TextView textView = (TextView) convertView;
                     convertView.setId(position);
-                    if (position == 5)
-                        textView.setText("");
-                    else {
-                        textView.setText(stringArray[position]);
-                        textView.setCompoundDrawablesWithIntrinsicBounds
-                                (drawableArray[position], null, null, null);
-                    }
+                    textView.setText(stringArray[position]);
+                    textView.setCompoundDrawablesWithIntrinsicBounds
+                            (drawableArray[position], null, null, null);
                 }
             }
             if (convertView != null) {

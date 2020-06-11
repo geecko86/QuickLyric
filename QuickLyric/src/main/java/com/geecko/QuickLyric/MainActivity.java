@@ -862,9 +862,6 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                 }, 250);
                 return;
             case 5:
-                // Feedback
-                return;
-            case 6:
                 // About Dialog
                 if (drawer instanceof DrawerLayout)
                     ((DrawerLayout) drawer).closeDrawer(drawerView);
