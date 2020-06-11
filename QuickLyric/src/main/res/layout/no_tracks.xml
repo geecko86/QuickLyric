@@ -23,8 +23,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="35dp"
-    android:paddingRight="35dp"
+    android:paddingStart="35dp"
+    android:paddingEnd="35dp"
     android:paddingTop="20dp">
 
     <TextView
@@ -34,8 +34,8 @@
         android:alpha="0.5"
         android:gravity="top|center_horizontal"
         android:paddingBottom="15dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:paddingTop="8dp"
         android:text="@string/welcome"
         android:textColor="?android:textColorSecondaryInverse"
@@ -57,8 +57,8 @@
         android:alpha="0.5"
         android:gravity="top|center_horizontal"
         android:paddingBottom="15dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:paddingTop="8dp"
         android:text="@string/first_launch"
         android:textColor="?android:textColorSecondaryInverse"

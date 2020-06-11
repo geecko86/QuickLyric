@@ -29,8 +29,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         app:layout_heightPercent="30%"
         app:layout_marginBottomPercent="3%">
 

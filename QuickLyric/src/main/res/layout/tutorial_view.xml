@@ -38,7 +38,7 @@
             android:background="?attr/selectableItemBackground"
             android:textColor="@android:color/white"
             android:textSize="@dimen/abc_text_size_medium_material"
-            android:layout_gravity="left|center_vertical"
+            android:layout_gravity="start|center_vertical"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
@@ -55,7 +55,7 @@
             android:id="@+id/pager_arrow"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             android:background="?attr/selectableItemBackground"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="end|center_vertical"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="50dp" />
@@ -67,7 +67,7 @@
             android:background="?attr/selectableItemBackground"
             android:textColor="@android:color/white"
             android:textSize="@dimen/abc_text_size_medium_material"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="end|center_vertical"
             android:layout_weight="1"
             android:visibility="gone"
             android:layout_width="0dp"

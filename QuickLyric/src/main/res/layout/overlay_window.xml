@@ -33,14 +33,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/overlay_window_padding"
-        android:layout_gravity="top|right"
+        android:layout_gravity="top|end"
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="16dp"
             android:layout_height="8dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="36dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="36dp"
             android:src="@drawable/overlay_tip"
             app:srcCompat="@drawable/overlay_tip"/>
 

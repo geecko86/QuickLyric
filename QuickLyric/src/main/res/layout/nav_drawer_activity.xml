@@ -78,7 +78,7 @@
                 android:id="@+id/refresh_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right|end"
+                android:layout_gravity="bottom|end|end"
                 android:layout_marginBottom="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"

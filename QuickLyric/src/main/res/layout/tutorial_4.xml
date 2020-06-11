@@ -57,11 +57,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:text="@string/nl_title"
         android:textAppearance="?android:attr/textAppearanceLargeInverse"
         android:textSize="30sp"/>
@@ -70,8 +70,8 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/textView"
-        android:layout_alignRight="@id/textView"
+        android:layout_alignStart="@id/textView"
+        android:layout_alignEnd="@id/textView"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
@@ -113,8 +113,8 @@
             android:id="@+id/floating_switch"
             android:clickable="false"
             android:checked="false"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -151,8 +151,8 @@
             android:id="@+id/NL_switch"
             android:clickable="false"
             android:checked="false"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>

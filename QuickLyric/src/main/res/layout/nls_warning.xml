@@ -41,7 +41,7 @@
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_toLeftOf="@id/ic_nls_warning_close"
         android:layout_toStartOf="@id/ic_nls_warning_close"
         android:background="@color/material_red_300"

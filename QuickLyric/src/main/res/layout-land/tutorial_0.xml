@@ -45,8 +45,8 @@
         android:layout_toRightOf="@id/demo_image"
         android:gravity="center"
         android:paddingBottom="30dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
 
         <View
             android:id="@+id/tutorial_0_center"
@@ -60,8 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/tutorial_0_center"
             android:layout_centerHorizontal="true"
-            android:layout_alignLeft="@id/textView2"
-            android:layout_alignRight="@id/textView2"
+            android:layout_alignStart="@id/textView2"
+            android:layout_alignEnd="@id/textView2"
             android:text="@string/welcome"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
             app:autoSizeMaxTextSize="30sp"

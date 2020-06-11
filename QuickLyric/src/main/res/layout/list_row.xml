@@ -40,8 +40,8 @@
             android:layout_above="@id/center"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:textSize="@dimen/txt_size"
             android:textColor="?android:attr/textColorPrimary"
             android:gravity="bottom" />
@@ -55,8 +55,8 @@
             android:layout_below="@id/center"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:textSize="@dimen/small_txt_size"
             android:textColor="?android:attr/textColorSecondary" />
 </RelativeLayout>
