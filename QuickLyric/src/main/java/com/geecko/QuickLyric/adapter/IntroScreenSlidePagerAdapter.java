@@ -18,13 +18,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.v13.app.FragmentStatePagerAdapter;
-import android.support.v4.view.VelocityTrackerCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.SwitchCompat;
+import androidx.legacy.app.FragmentStatePagerAdapter;
+import androidx.core.view.VelocityTrackerCompat;
+import androidx.viewpager.widget.ViewPager;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -58,7 +58,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import static android.support.v4.widget.DrawerLayout.LOCK_MODE_UNLOCKED;
+import static androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED;
 
 /**
  * This file is part of QuickLyric

@@ -30,7 +30,7 @@ import android.util.AttributeSet;
 
 import com.geecko.QuickLyric.R;
 
-public class ThemeButton extends android.support.v7.widget.AppCompatImageButton {
+public class ThemeButton extends androidx.appcompat.widget.AppCompatImageButton {
 
     private Drawable mCheckMark;
 

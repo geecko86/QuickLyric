@@ -50,7 +50,7 @@ import android.util.AttributeSet;
 
 import com.geecko.QuickLyric.R;
 
-public class BubblePopImageView extends android.support.v7.widget.AppCompatImageView {
+public class BubblePopImageView extends androidx.appcompat.widget.AppCompatImageView {
     private int mViewWidth;
     private int mViewHeight;
     private Paint mBubblePaint;

@@ -17,7 +17,7 @@
   ~  */
   -->
 
-<android.support.v4.widget.DrawerLayout
+<androidx.drawerlayout.widget.DrawerLayout
     android:id="@+id/drawer_layout"
     app:statusBarScrim="@android:color/holo_green_dark"
     app:statusBarBackground="@android:color/holo_red_dark"
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/coordinator_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -89,7 +89,7 @@
                 app:borderWidth="0dp"
                 app:layout_behavior="com.geecko.QuickLyric.utils.RefreshButtonBehavior"/>
 
-        </android.support.design.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </com.geecko.QuickLyric.view.ScrimInsetsFrameLayout>
     <!-- The navigation drawer -->
 
@@ -100,4 +100,4 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
 
-</android.support.v4.widget.DrawerLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

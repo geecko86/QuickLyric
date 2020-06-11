@@ -23,11 +23,10 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Outline;
 import android.os.Build;
-import android.support.v7.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewOutlineProvider;
-import android.widget.ImageButton;
 
 public class ElevatedCircleView extends AppCompatImageButton {
     public ElevatedCircleView(Context context, AttributeSet attrs) {

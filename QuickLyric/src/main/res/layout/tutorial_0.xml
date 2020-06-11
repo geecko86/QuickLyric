@@ -17,7 +17,7 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<android.support.percent.PercentRelativeLayout
+<androidx.percentlayout.widget.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -68,4 +68,4 @@
         android:src="@drawable/icon"
         app:layout_heightPercent="70%"/>
 
-</android.support.percent.PercentRelativeLayout>
+</androidx.percentlayout.widget.PercentRelativeLayout>

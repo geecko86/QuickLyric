@@ -99,7 +99,7 @@
             android:layout_below="@id/textView2"
             android:elevation="6dp">
 
-            <android.support.v7.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/why_notif_access_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                     android:textColor="?android:attr/textColorPrimaryInverse"
                     android:layout_weight="1"
                     android:textStyle="bold"/>
-                <android.support.v7.widget.SwitchCompat
+                <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/floating_switch"
                     android:clickable="false"
                     android:checked="false"
@@ -174,7 +174,7 @@
                     android:textStyle="bold"/>
 
 
-                <android.support.v7.widget.SwitchCompat
+                <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/NL_switch"
                     android:clickable="false"
                     android:checked="false"

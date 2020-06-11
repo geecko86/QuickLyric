@@ -22,14 +22,14 @@ package com.geecko.QuickLyric.view;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.support.design.widget.CoordinatorLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.geecko.QuickLyric.R;
 
-public class SwipeRefreshLayout extends android.support.v4.widget.SwipeRefreshLayout {
+public class SwipeRefreshLayout extends androidx.swiperefreshlayout.widget.SwipeRefreshLayout {
     public SwipeRefreshLayout(Context context) {
         super(context);
     }

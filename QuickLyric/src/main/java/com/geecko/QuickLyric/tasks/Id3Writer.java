@@ -23,7 +23,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.v4.widget.DrawerLayout;
+import androidx.drawerlayout.widget.DrawerLayout;
 import android.text.Html;
 import android.view.View;
 import android.widget.EditText;

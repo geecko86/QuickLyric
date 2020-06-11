@@ -34,8 +34,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.annotation.RequiresApi;
-import android.support.v4.util.ArraySet;
+import androidx.annotation.RequiresApi;
+import androidx.collection.ArraySet;
 import android.util.Log;
 
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;

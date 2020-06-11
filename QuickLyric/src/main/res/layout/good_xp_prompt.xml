@@ -27,7 +27,7 @@
                 android:background="@color/material_amber_600"
                 android:padding="5dp">
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/hate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         android:text="@string/no"
         android:textColor="@color/material_white"/>
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/love"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
         android:text="@string/yes"
         android:textColor="@color/material_white"/>
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ic_love"
         android:layout_width="32dp"
         android:layout_height="wrap_content"

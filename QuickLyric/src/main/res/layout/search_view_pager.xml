@@ -31,7 +31,7 @@
         android:minHeight="56dp"
         android:background="@android:color/white">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -54,13 +54,13 @@
 
     </FrameLayout>
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/search_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-        <android.support.v4.view.PagerTitleStrip
+        <androidx.viewpager.widget.PagerTitleStrip
             android:id="@+id/pager_title_strip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,6 +71,6 @@
             android:elevation="4dp"
             android:textColor="?colorAccent" />
 
-    </android.support.v4.view.ViewPager>
+    </androidx.viewpager.widget.ViewPager>
 
 </LinearLayout>

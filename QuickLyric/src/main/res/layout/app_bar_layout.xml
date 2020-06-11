@@ -30,7 +30,7 @@
     android:theme="@style/actionBar.QuickLyric"
     app:layout_behavior="com.geecko.QuickLyric.utils.AppBarBehavior">
 
-    <android.support.design.widget.CollapsingToolbarLayout
+    <com.google.android.material.appbar.CollapsingToolbarLayout
         android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_layout_height"
@@ -117,7 +117,7 @@
             android:visibility="invisible"
             app:srcCompat="@drawable/ic_edit"/>
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -125,5 +125,5 @@
             android:focusable="false"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-    </android.support.design.widget.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
 </com.geecko.QuickLyric.view.ControllableAppBarLayout>

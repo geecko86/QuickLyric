@@ -21,14 +21,9 @@ package com.geecko.QuickLyric.view;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.widget.NestedScrollView;
-import android.util.AttributeSet;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
-import com.geecko.QuickLyric.R;
-import com.geecko.QuickLyric.utils.AppBarBehavior;
+import androidx.core.widget.NestedScrollView;
+import android.util.AttributeSet;
 
 public class NonFocusableNestedScrollView extends NestedScrollView {
 

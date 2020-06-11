@@ -26,7 +26,7 @@
                 android:background="@color/material_red_400"
                 android:padding="10dp">
 
-    <android.support.v7.widget.AppCompatImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/ic_nls_warning_close"
         android:layout_width="18dp"
         android:background="?selectableItemBackgroundBorderless"
@@ -36,7 +36,7 @@
         android:layout_centerVertical="true"
         app:srcCompat="@drawable/ic_overlay_close"/>
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/fix_it"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         android:text="@string/fix_it"
         android:textColor="@color/material_white"/>
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ic_warning"
         android:layout_width="36dp"
         android:layout_height="36dp"

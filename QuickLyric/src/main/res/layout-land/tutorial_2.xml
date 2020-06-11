@@ -17,7 +17,7 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<android.support.percent.PercentRelativeLayout
+<androidx.percentlayout.widget.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -26,7 +26,7 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <android.support.percent.PercentRelativeLayout
+    <androidx.percentlayout.widget.PercentRelativeLayout
         android:id="@+id/big_fab_container"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -36,7 +36,7 @@
         app:layout_marginStartPercent="5%"
         app:layout_widthPercent="35%">
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/big_fab"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -45,7 +45,7 @@
             app:borderWidth="0dp"
             app:elevation="@dimen/intro_fab_elevation"
             app:rippleColor="@color/accent"/>
-    </android.support.percent.PercentRelativeLayout>
+    </androidx.percentlayout.widget.PercentRelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -82,4 +82,4 @@
             android:textColor="?android:attr/textColorPrimaryInverse"/>
     </RelativeLayout>
 
-</android.support.percent.PercentRelativeLayout>
+</androidx.percentlayout.widget.PercentRelativeLayout>

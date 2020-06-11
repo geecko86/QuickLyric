@@ -17,7 +17,7 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<android.support.percent.PercentRelativeLayout
+<androidx.percentlayout.widget.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -109,7 +109,7 @@
             android:textStyle="bold"/>
 
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/floating_switch"
             android:clickable="false"
             android:checked="false"
@@ -147,7 +147,7 @@
             android:textStyle="bold"/>
 
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/NL_switch"
             android:clickable="false"
             android:checked="false"
@@ -157,4 +157,4 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-</android.support.percent.PercentRelativeLayout>
+</androidx.percentlayout.widget.PercentRelativeLayout>

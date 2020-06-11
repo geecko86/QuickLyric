@@ -16,7 +16,7 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<android.support.design.internal.ScrimInsetsFrameLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:insetForeground="#2000"
@@ -52,4 +52,4 @@
             android:background="?android:attr/panelColorBackground"/>
 
     </LinearLayout>
-</android.support.design.internal.ScrimInsetsFrameLayout>
+</FrameLayout>

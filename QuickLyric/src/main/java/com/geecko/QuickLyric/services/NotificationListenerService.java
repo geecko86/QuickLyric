@@ -40,8 +40,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationManagerCompat;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.geecko.QuickLyric.App;

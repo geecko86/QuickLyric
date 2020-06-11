@@ -23,8 +23,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.util.ArraySet;
+import androidx.core.content.ContextCompat;
+import androidx.collection.ArraySet;
 
 import com.geecko.QuickLyric.BuildConfig;
 import com.geecko.QuickLyric.services.NotificationListenerService;

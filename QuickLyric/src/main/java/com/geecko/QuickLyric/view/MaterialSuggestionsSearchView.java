@@ -112,8 +112,8 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
             text = ((EditText) ((Activity) getContext()).findViewById(R.id.searchTextView)).getText();
         else if (getContext() instanceof ContextThemeWrapper)
             text = ((EditText) ((Activity) ((ContextThemeWrapper) getContext()).getBaseContext()).findViewById(R.id.searchTextView)).getText();
-        else if (getContext() instanceof android.support.v7.view.ContextThemeWrapper)
-            text = ((EditText) ((Activity) ((android.support.v7.view.ContextThemeWrapper) getContext()).getBaseContext()).findViewById(R.id.searchTextView)).getText();
+        else if (getContext() instanceof androidx.appcompat.view.ContextThemeWrapper)
+            text = ((EditText) ((Activity) ((androidx.appcompat.view.ContextThemeWrapper) getContext()).getBaseContext()).findViewById(R.id.searchTextView)).getText();
         else
             return;
         setQuery(text, false);

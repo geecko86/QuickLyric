@@ -18,8 +18,8 @@ package com.geecko.QuickLyric.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
+import com.google.android.material.appbar.AppBarLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 
 import java.lang.ref.WeakReference;

@@ -20,8 +20,8 @@
 package com.geecko.QuickLyric.view;
 
 import android.content.Context;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.util.AttributeSet;
 
 import com.geecko.QuickLyric.utils.RefreshButtonBehavior;

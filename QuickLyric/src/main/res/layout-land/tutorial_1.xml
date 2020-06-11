@@ -16,7 +16,7 @@
   ~  * along with QuickLyric.  If not, see <http://www.gnu.org/licenses/>.
   ~  */
   -->
-<android.support.percent.PercentRelativeLayout
+<androidx.percentlayout.widget.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -39,7 +39,7 @@
         app:layout_widthPercent="60%"
         app:screen="@drawable/intro_1_screen"/>
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView1_c"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,4 +84,4 @@
         app:autoSizeTextType="uniform"
         app:autoSizeStepGranularity="1sp"/>
 
-</android.support.percent.PercentRelativeLayout>
+</androidx.percentlayout.widget.PercentRelativeLayout>
