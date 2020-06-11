@@ -39,7 +39,7 @@ android {
         resConfigs "ar-rSA", "ca", "cs-rCZ", "de", "el-rGR", "es", "fa-rIR", "fr", "hi-rIN", "hu-rHU", "in-rID", "it-rIT", "iw-rIL", "ja-rJP", "pl-rPL", "pt-rBR", "pt-rPT", "ru-rRU", "sl-rSI", "sr-rSP", "sv-rSE", "tr-rTR", "uk-rUA", "nl", "zh-rCN", "zh-rTW"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         multiDexEnabled true
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         vectorDrawables.useSupportLibrary = true
         versionCode 219
@@ -86,46 +86,41 @@ android {
     }
 }
 
-ext.versions = [
-        supportLib: "27.1.1",
-]
-
 dependencies {
-    //noinspection GradleCompatible
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
-    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'org.greenrobot:eventbus:3.0.0'
-    implementation 'com.github.medyo:android-about-page:1.2.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.greenrobot:eventbus:3.2.0'
+    implementation 'com.github.medyo:android-about-page:1.2.6'
     implementation 'com.balysv:material-ripple:1.0.2'
     implementation 'com.github.geecko86:volley:3c99c01'
     implementation 'com.infstory:switch-preference-compat:1.0.0'
     implementation 'me.relex:circleindicator:1.2.2@aar'
-    implementation 'com.wdullaer:materialdatetimepicker:1.5.2'
+    implementation 'com.wdullaer:materialdatetimepicker:1.5.4'
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
     implementation 'org:jaudiotagger:2.0.3'
-    implementation 'org.jsoup:jsoup:1.9.2'
+    implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'com.github.geecko86:FloatingView:963f080178'
     implementation('com.github.ozodrukh:CircularReveal:2.0.1@aar') { transitive = true }
     implementation 'com.github.zagum:SpeechRecognitionView:1.0.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
     implementation 'com.zzhoujay.materialcolors:materialcolors:1.0.0'
     implementation 'com.github.TeamNewPipe:NewPipeExtractor:v0.11.0'
     implementation 'com.github.geecko86:SpotifyApi:6'
 
     /* Debug & testing */
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test:rules:1.1.1'
-    androidTestImplementation 'androidx.annotation:annotation:1.0.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.annotation:annotation:1.1.0'
 }
 preBuild.dependsOn(['compileChromaprint'])
