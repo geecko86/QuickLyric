@@ -32,7 +32,6 @@ android {
     }
     compileSdkVersion 29
     buildToolsVersion '26.0.3'
-    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.geecko.QuickLyric"
@@ -114,6 +113,7 @@ dependencies {
     implementation 'com.zzhoujay.materialcolors:materialcolors:1.0.0'
     implementation 'com.github.TeamNewPipe:NewPipeExtractor:v0.11.0'
     implementation 'com.github.geecko86:SpotifyApi:6'
+    implementation 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
 
     /* Debug & testing */
     testImplementation 'junit:junit:4.13'
