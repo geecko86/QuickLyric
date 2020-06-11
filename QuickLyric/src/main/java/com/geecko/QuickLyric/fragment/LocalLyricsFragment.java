@@ -584,7 +584,7 @@ public class LocalLyricsFragment extends ListFragment implements ActionMode.Call
                     showScanDialog();
                 else
                     Toast.makeText(getActivity(), getString(R.string.dl_progress, 9, 9)
-                            .replaceAll("9", ""), Toast.LENGTH_LONG).show();
+                            .replaceAll("9/9", ""), Toast.LENGTH_LONG).show();
         }
         return false;
     }

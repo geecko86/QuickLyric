@@ -45,6 +45,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
+import com.geecko.QuickLyric.utils.AboutActivityStrings;
 import com.geecko.QuickLyric.utils.ColorUtils;
 import com.geecko.QuickLyric.utils.NightTimeVerifier;
 
@@ -97,14 +98,14 @@ public class AboutActivity extends AppCompatActivity {
         Element ossLicensesElement = new Element().setTitle("Open Source Licenses");
         ossLicensesElement.setOnClickListener(v -> {
             WebView webView = new WebView(AboutActivity.this);
-            String data = getResources().getString(R.string.open_source_librairies_licenses);
+            String data = AboutActivityStrings.getOpen_source_libraries_licenses();
             webView.loadData(data, "text/html; charset=utf-8", "UTF-8");
             new AlertDialog.Builder(AboutActivity.this).setView(webView).show();
         });
         Element tosElement = new Element().setTitle(getString(R.string.about_read_ToS));
         tosElement.setOnClickListener(v -> {
             WebView webView = new WebView(AboutActivity.this);
-            String data = getResources().getString(R.string.QL_EULA);
+            String data = AboutActivityStrings.getQL_EULA();
             webView.loadData(data, "text/html; charset=utf-8", "UTF-8");
             new AlertDialog.Builder(AboutActivity.this).setView(webView).show();
         });
