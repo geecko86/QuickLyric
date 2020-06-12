@@ -33,6 +33,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import com.geecko.QuickLyric.BuildConfig;
+import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.provider.AZLyrics;
@@ -59,9 +60,10 @@ import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -112,7 +114,7 @@ public class DownloadThread extends Thread {
                 callback.get() : null;
         return new Runnable() {
             private Set<String> getProvidersSet(Context context) {
-                return PreferenceManager.getDefaultSharedPreferences(context).getStringSet("pref_providers", new TreeSet<>());
+                return androidx.preference.PreferenceManager.getDefaultSharedPreferences(context).getStringSet("pref_providers", new HashSet<>(Arrays.asList(context.getResources().getStringArray(R.array.provider_defaults))));
             }
 
             @SuppressWarnings("unchecked")

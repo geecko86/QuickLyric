@@ -54,7 +54,8 @@ import com.geecko.QuickLyric.view.MaterialSuggestionsSearchView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 public class SearchActivity extends AppCompatActivity {
@@ -67,8 +68,8 @@ public class SearchActivity extends AppCompatActivity {
         searchProviders.clear();
         searchProviders.add(DatabaseHelper.class);
 
-        Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(this)
-                .getStringSet("pref_providers", Collections.emptySet());
+        Set<String> providersSet = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this).getStringSet("pref_providers", new HashSet<>(Arrays.asList(getResources().getStringArray(R.array.provider_defaults))));
+
 
         for (String provider : providersSet) {
             switch (provider) {
