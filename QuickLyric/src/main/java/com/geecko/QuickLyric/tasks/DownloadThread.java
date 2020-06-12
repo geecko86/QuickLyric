@@ -27,18 +27,27 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.preference.PreferenceManager;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+
 import com.geecko.QuickLyric.BuildConfig;
 import com.geecko.QuickLyric.fragment.LyricsViewFragment;
-import com.geecko.QuickLyric.provider.LyricsChart;
 import com.geecko.QuickLyric.model.Lyrics;
+import com.geecko.QuickLyric.provider.AZLyrics;
+import com.geecko.QuickLyric.provider.Genius;
+import com.geecko.QuickLyric.provider.JLyric;
+import com.geecko.QuickLyric.provider.Lololyrics;
+import com.geecko.QuickLyric.provider.LyricWiki;
+import com.geecko.QuickLyric.provider.LyricsChart;
+import com.geecko.QuickLyric.provider.LyricsMania;
+import com.geecko.QuickLyric.provider.MetalArchives;
+import com.geecko.QuickLyric.provider.PLyrics;
+import com.geecko.QuickLyric.provider.UrbanLyrics;
+import com.geecko.QuickLyric.provider.ViewLyrics;
 import com.geecko.QuickLyric.services.LyricsOverlayService;
 import com.geecko.QuickLyric.services.ScrobblerService;
-import com.geecko.QuickLyric.utils.Chromaprint;
-import com.geecko.QuickLyric.utils.FingerprintDatabaseHelper;
 import com.geecko.QuickLyric.utils.YoutubeCategoryChecker;
 
 import org.json.JSONArray;
@@ -51,6 +60,8 @@ import java.lang.ref.WeakReference;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -88,40 +99,114 @@ public class DownloadThread extends Thread {
 
     private boolean concurrentAllowed;
 
-    public DownloadThread(final Lyrics.Callback callback, final String player, long duration, @Nullable File musicFile, final String... params) {
-        this(new WeakReference<>(callback), player, duration, musicFile, params);
+    public DownloadThread(final Lyrics.Callback callback, final String player, long duration, @Nullable File musicFile, Context context, final String... params) {
+        this(new WeakReference<>(callback), player, duration, musicFile, context, params);
     }
 
-    public DownloadThread(final WeakReference<Lyrics.Callback> callback, final String player, long duration, @Nullable File musicFile, final String... params) {
-        super(DownloadThread.getRunnable(callback, player, duration, getCallerClassname(), musicFile, params));
+    public DownloadThread(final WeakReference<Lyrics.Callback> callback, final String player, long duration, @Nullable File musicFile, Context context, final String... params) {
+        super(DownloadThread.getRunnable(callback, player, duration, getCallerClassname(), musicFile, context, params));
     }
 
-    private static Runnable getRunnable(final Reference<Lyrics.Callback> callback, String player, long duration, String callerClass, @Nullable File musicFile, final String... params) {
+    private static Runnable getRunnable(final Reference<Lyrics.Callback> callback, String player, long duration, String callerClass, @Nullable File musicFile, Context context, final String... params) {
         final Lyrics.Callback otherCallback = (callback.get() instanceof LyricsOverlayService.OverlayServiceCallback || callback.get() instanceof ScrobblerService.ScrobblerCallback) ?
                 callback.get() : null;
         return new Runnable() {
-
-            Chromaprint.Fingerprint fingerprint = null;
+            private Set<String> getProvidersSet(Context context) {
+                return PreferenceManager.getDefaultSharedPreferences(context).getStringSet("pref_providers", new TreeSet<>());
+            }
 
             @SuppressWarnings("unchecked")
             public Lyrics download(String url, String artist, String title) {
-                return LyricsChart.fromURL(url, artist, title, LRC);
+                Lyrics lyrics = null;
+                Set<String> providers = getProvidersSet(context);
+                for (String provider : providers) {
+                    switch (provider) {
+                        case "AZLyrics":
+                            lyrics = AZLyrics.fromURL(url, artist, title);
+                            break;
+                        case "Genius":
+                            lyrics = Genius.fromURL(url, artist, title);
+                            break;
+                        case "JLyric":
+                            lyrics = JLyric.fromURL(url, artist, title);
+                            break;
+                        case "Lololyrics":
+                            lyrics = Lololyrics.fromURL(url, artist, title);
+                            break;
+                        case "LyricsMania":
+                            lyrics = LyricsMania.fromURL(url, artist, title);
+                            break;
+                        case "LyricWiki":
+                            lyrics = LyricWiki.fromURL(url, artist, title);
+                            break;
+                        case "MetalArchives":
+                            lyrics = MetalArchives.fromURL(url, artist, title);
+                            break;
+                        case "PLyrics":
+                            lyrics = PLyrics.fromURL(url, artist, title);
+                            break;
+                        case "UrbanLyrics":
+                            lyrics = UrbanLyrics.fromURL(url, artist, title);
+                            break;
+                        case "ViewLyrics":
+                            lyrics = ViewLyrics.fromURL(url, artist, title);
+                            break;
+                        case "LyricsCharts":
+                            lyrics = LyricsChart.fromURL(url, artist, title, LRC);
+                            break;
+                    }
+                    if (lyrics != null && lyrics.getFlag() == Lyrics.POSITIVE_RESULT)
+                        return lyrics;
+                }
+                return new Lyrics(Lyrics.NO_RESULT);
             }
 
             @SuppressWarnings("unchecked")
             public Lyrics download(String artist, String title, File musicFile, boolean allowLrc) {
-                Context context = null;
-                if (callback != null) {
-                    context = getContextFromCallback(callback);
-                    if (context != null && musicFile != null)
-                        fingerprint = Chromaprint.getFingerprintForPath(context, musicFile.getAbsolutePath());
-                }
-                Lyrics lyrics = LyricsChart.fromMetaData(artist, title, LRC && allowLrc, fingerprint, player);
-
-                if (context != null && fingerprint != null && lyrics != null && lyrics.getFlag() == Lyrics.POSITIVE_RESULT) {
-                    FingerprintDatabaseHelper.getInstance(context.getApplicationContext())
-                            .insertFingerprint(musicFile.getAbsolutePath(), fingerprint.getFingerprint(),
-                                    lyrics.getArtist(), lyrics.getTitle(), fingerprint.getDuration(), artist, title);
+                Lyrics lyrics = new Lyrics(Lyrics.NO_RESULT);
+                Set<String> providers = getProvidersSet(context);
+                for (String provider : providers) {
+                    switch (provider) {
+                        case "AZLyrics":
+                            lyrics = AZLyrics.fromMetaData(artist, title);
+                            break;
+                        case "Genius":
+                            lyrics = Genius.fromMetaData(artist, title);
+                            break;
+                        case "JLyric":
+                            lyrics = JLyric.fromMetaData(artist, title);
+                            break;
+                        case "Lololyrics":
+                            lyrics = Lololyrics.fromMetaData(artist, title);
+                            break;
+                        case "LyricsMania":
+                            lyrics = LyricsMania.fromMetaData(artist, title);
+                            break;
+                        case "LyricWiki":
+                            lyrics = LyricWiki.fromMetaData(artist, title);
+                            break;
+                        case "MetalArchives":
+                            lyrics = MetalArchives.fromMetaData(artist, title);
+                            break;
+                        case "PLyrics":
+                            lyrics = PLyrics.fromMetaData(artist, title);
+                            break;
+                        case "UrbanLyrics":
+                            lyrics = UrbanLyrics.fromMetaData(artist, title);
+                            break;
+                        case "ViewLyrics":
+                            try {
+                                lyrics = ViewLyrics.fromMetaData(artist, title);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case "LyricsCharts":
+                            lyrics = LyricsChart.fromMetaData(artist, title, LRC && allowLrc, player);
+                            break;
+                    }
+                    if (lyrics != null && lyrics.getFlag() == Lyrics.POSITIVE_RESULT)
+                        return lyrics;
                 }
                 return lyrics;
             }
@@ -189,7 +274,7 @@ public class DownloadThread extends Thread {
                 if (lyrics != null) {
                     Context context = getContextFromCallback(callback);
                     storedResult = String.format(Locale.getDefault(), "%d_%d_%s_%s_%b_%b_%s_%s_%s",
-                            lyrics.getFlag(), lyrics.getErrorCode(), artist, title, musicFile != null && musicFile.exists(), fingerprint != null, lyrics.getArtist(), lyrics.getTitle(), lyrics.getSource());
+                            lyrics.getFlag(), lyrics.getErrorCode(), artist, title, musicFile != null && musicFile.exists(), true, lyrics.getArtist(), lyrics.getTitle(), lyrics.getSource());
                     if (context != null) {
                         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
                         sharedPref.edit().putString("download_result", storedResult).apply();

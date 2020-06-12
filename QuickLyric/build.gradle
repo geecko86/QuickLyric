@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply from: 'chromaprint.gradle'
 
 repositories {
     mavenCentral()
@@ -30,7 +29,7 @@ android {
             jniLibs.srcDir 'src/main/jniLibs'
         }
     }
-    compileSdkVersion 29
+    compileSdkVersion 28
     buildToolsVersion '26.0.3'
 
     defaultConfig {
@@ -39,10 +38,10 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         multiDexEnabled true
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 28
         vectorDrawables.useSupportLibrary = true
-        versionCode 219
-        versionName "3.5.4c"
+        versionCode 220
+        versionName "3.6"
 
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86"
@@ -124,4 +123,3 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.annotation:annotation:1.1.0'
 }
-preBuild.dependsOn(['compileChromaprint'])

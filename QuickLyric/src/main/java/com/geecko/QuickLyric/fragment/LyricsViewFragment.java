@@ -90,6 +90,8 @@ import androidx.core.view.MenuItemCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.core.widget.NestedScrollView;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -485,7 +487,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                             && mLyrics.getTitle().equalsIgnoreCase(title)) &&
                             PermissionsChecker.hasPermission(getActivity(), "android.permission.READ_EXTERNAL_STORAGE")
             ))
-                    lyrics = Id3Reader.getLyrics(getActivity(), artist, title, requestPermission);
+                lyrics = Id3Reader.getLyrics(getActivity(), artist, title, requestPermission);
 
             if (lyrics == null)
                 lyrics = DatabaseHelper.getInstance(getActivity()).get(new String[]{artist, title});
@@ -516,9 +518,9 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                 musicFile = Id3Reader.getFile(getActivity(), artist, title, requestPermission);
 
             if (url == null)
-                new DownloadThread(new WeakReference<>(this), player, 0L, musicFile, artist, title).start();
+                new DownloadThread(new WeakReference<>(this), player, 0L, musicFile, getActivity(), artist, title).start();
             else
-                new DownloadThread(new WeakReference<>(this), player, duration, null, url, artist, title).start();
+                new DownloadThread(new WeakReference<>(this), player, duration, null, getActivity(), url, artist, title).start();
 
         } else if (lyrics != null)
             onLyricsDownloaded(lyrics);
@@ -637,7 +639,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
             if (!lyrics.isLRC()) {
                 viewSwitcher.setVisibility(View.VISIBLE);
                 lrcView.setVisibility(View.GONE);
-                String[] paragraphs = new String[] {Html.fromHtml(lyrics.getText()).toString()};
+                String[] paragraphs = new String[]{Html.fromHtml(lyrics.getText()).toString()};
                 View[] lyricsViews = new View[paragraphs.length + 2];
                 int viewsIndex = 0;
                 LyricsTextFactory factory = new LyricsTextFactory(getActivity());
@@ -665,7 +667,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
                         else
                             layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                     ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
-                        layoutParams.setMargins(0,  0, 0, 25 * (int) getResources().getDimension(R.dimen.dp));
+                        layoutParams.setMargins(0, 0, 0, 25 * (int) getResources().getDimension(R.dimen.dp));
                         lyricsView.setLayoutParams(layoutParams);
                     }
                 }
@@ -1354,69 +1356,69 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
     }
 
     private Runnable lrcUpdater = () -> {
+        if (threadCancelled)
+            return;
+        boolean ran = false;
+        if (getActivity() == null)
+            return;
+        long[] position = new long[]{MediaControllerCallback.getActiveControllerPosition(getActivity())};
+        SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
+        long duration = preferences.getLong("duration", -1);
+        String player = preferences.getString("player", "");
+        final LrcView[] lrcView = {LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view)};
+
+        if (lrcView[0] != null) {
+            boolean songIsTooShort = duration > 0 && lrcView[0].getLastLinePosition() > duration;
+            boolean youtubeSongIsTooLong = player.contains("youtube") && duration - 60000 > lrcView[0].getLastLinePosition();
+            if (getActivity() != null) {
+                if ((position[0] == -1 || !PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("pref_lrc", true))
+                        || songIsTooShort || youtubeSongIsTooLong) {
+                    final Lyrics staticLyrics = lrcView[0].getStaticLyrics();
+                    getActivity().runOnUiThread(() -> update(staticLyrics, getView(), true));
+                    return;
+                } else {
+                    getActivity().runOnUiThread(() -> {
+                        Activity activity = LyricsViewFragment.this.getActivity();
+                        if (activity != null)
+                            ((LrcView) activity.findViewById(R.id.lrc_view))
+                                    .changeCurrent(MediaControllerCallback.getActiveControllerPosition(activity));
+                    });
+                }
+            }
+        }
+
+        MusicBroadcastReceiver.forceAutoUpdate(true);
+        while (getActivity() != null &&
+                preferences.getString("track", "").equalsIgnoreCase(mLyrics.getOriginalTitle()) &&
+                preferences.getString("artist", "").equalsIgnoreCase(mLyrics.getOriginalArtist()) &&
+                preferences.getBoolean("playing", true)) {
             if (threadCancelled)
                 return;
-            boolean ran = false;
-            if (getActivity() == null)
-                return;
-            long[] position = new long[] {MediaControllerCallback.getActiveControllerPosition(getActivity())};
-            SharedPreferences preferences = getActivity().getSharedPreferences("current_music", Context.MODE_PRIVATE);
-            long duration = preferences.getLong("duration", -1);
-            String player = preferences.getString("player", "");
-            final LrcView[] lrcView = {LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view)};
-
-            if (lrcView[0] != null) {
-                boolean songIsTooShort = duration > 0 && lrcView[0].getLastLinePosition() > duration;
-                boolean youtubeSongIsTooLong = player.contains("youtube") && duration - 60000 > lrcView[0].getLastLinePosition();
-                if (getActivity() != null) {
-                    if ((position[0] == -1 || !PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("pref_lrc", true))
-                            || songIsTooShort || youtubeSongIsTooLong) {
-                        final Lyrics staticLyrics = lrcView[0].getStaticLyrics();
-                        getActivity().runOnUiThread(() -> update(staticLyrics, getView(), true));
-                        return;
-                    } else {
-                        getActivity().runOnUiThread(() -> {
-                            Activity activity = LyricsViewFragment.this.getActivity();
-                            if (activity != null)
-                                ((LrcView) activity.findViewById(R.id.lrc_view))
-                                        .changeCurrent(MediaControllerCallback.getActiveControllerPosition(activity));
-                        });
-                    }
+            ran = true;
+            position[0] = MediaControllerCallback.getActiveControllerPosition(getActivity());
+            getActivity().runOnUiThread(() -> {
+                if (lrcView[0] == null || mHasBeenRotated) {
+                    lrcView[0] = LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view);
+                    mHasBeenRotated = false;
                 }
+                if (lrcView[0] != null)
+                    lrcView[0].changeCurrent(position[0]);
+            });
+            //String time = String.valueOf((position / 60000)) + " min ";
+            //time += String.valueOf((position / 1000) % 60) + " sec";
+            //Log.i("QuickLyric", time);
+            //Log.d("QuickLyric", "Playing:"+preferences.getBoolean("playing", true));
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
-            MusicBroadcastReceiver.forceAutoUpdate(true);
-            while (getActivity() != null &&
-                    preferences.getString("track", "").equalsIgnoreCase(mLyrics.getOriginalTitle()) &&
-                    preferences.getString("artist", "").equalsIgnoreCase(mLyrics.getOriginalArtist()) &&
-                    preferences.getBoolean("playing", true)) {
-                if (threadCancelled)
-                    return;
-                ran = true;
-                position[0] = MediaControllerCallback.getActiveControllerPosition(getActivity());
-                getActivity().runOnUiThread(() -> {
-                    if (lrcView[0] == null || mHasBeenRotated) {
-                        lrcView[0] = LyricsViewFragment.this.getActivity().findViewById(R.id.lrc_view);
-                        mHasBeenRotated = false;
-                    }
-                    if (lrcView[0] != null)
-                        lrcView[0].changeCurrent(position[0]);
-                });
-                //String time = String.valueOf((position / 60000)) + " min ";
-                //time += String.valueOf((position / 1000) % 60) + " sec";
-                //Log.i("QuickLyric", time);
-                //Log.d("QuickLyric", "Playing:"+preferences.getBoolean("playing", true));
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            MusicBroadcastReceiver.forceAutoUpdate(true);
-            if (preferences.getBoolean("playing", true) && ran && mLyrics.isLRC() && getActivity() != null
-                    && lrcView[0].getVisibility() == View.VISIBLE) {
-                fetchCurrentLyrics(false, true);
-            }
+        }
+        MusicBroadcastReceiver.forceAutoUpdate(true);
+        if (preferences.getBoolean("playing", true) && ran && mLyrics.isLRC() && getActivity() != null
+                && lrcView[0].getVisibility() == View.VISIBLE) {
+            fetchCurrentLyrics(false, true);
+        }
     };
 
     public void updateSearchView(boolean collapsed, String query, boolean focused) {

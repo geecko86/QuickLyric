@@ -623,7 +623,7 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
                 else {
                     DownloadThread.LRC = PreferenceManager.getDefaultSharedPreferences(context)
                             .getBoolean("pref_lrc", true);
-                    new DownloadThread(new WeakReference<>(callback), player, duration, null, metadata[0], metadata[1]).start(); // FIXME use queue
+                    new DownloadThread(new WeakReference<>(callback), player, duration, null, context, metadata[0], metadata[1]).start(); // FIXME use queue
                 }
             } else {
                 callback.onLyricsDownloaded(null);
@@ -757,7 +757,7 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
     public void onHandleMoved(float newX, float newY, float oldX, float oldY, int screenW, int screenH) {
         ViewGroup.LayoutParams lp = mOverlayWindow.getChildAt(0).getLayoutParams();
         int wMinimum = screenW * 3 / 4;
-        int hMinimum = screenH * 2 / 3 ;
+        int hMinimum = screenH * 2 / 3;
         lp.width = Math.min(originalWindowDimensions[0] + (int) (oldX - newX), screenW);
         lp.width = Math.max(lp.width, wMinimum);
         lp.height = Math.min(originalWindowDimensions[1] - (int) (oldY - newY), screenH);
