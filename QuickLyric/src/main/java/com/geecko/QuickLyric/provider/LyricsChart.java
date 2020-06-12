@@ -27,6 +27,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.StringRequest;
 import com.geecko.QuickLyric.BuildConfig;
 import com.geecko.QuickLyric.model.Lyrics;
+import com.geecko.QuickLyric.utils.Chromaprint;
 import com.geecko.QuickLyric.utils.Net;
 
 import org.jsoup.Jsoup;
@@ -45,7 +46,7 @@ public class LyricsChart {
 
     public static final String domain = "api.chartlyrics.com";
 
-    public static Lyrics fromMetaData(String originalArtist, String originalTitle, boolean lrc, String player) {
+    public static Lyrics fromMetaData(String originalArtist, String originalTitle, boolean lrc, Chromaprint.Fingerprint fingerprint, String player) {
         String json;
         try {
             String url = "http://api.chartlyrics.com/apiv1.asmx/SearchLyricDirect?"
@@ -145,7 +146,7 @@ public class LyricsChart {
     }
 
     public static com.android.volley.Request getVolleyRequest(boolean lrc, Listener<String> listener,
-                                                              ErrorListener errorListener, String... args) throws Exception {
+                                                              ErrorListener errorListener, Chromaprint.Fingerprint fingerprint, String... args) throws Exception {
         String url = String.format("http://api.chartlyrics.com/apiv1.asmx/SearchLyricDirect?artist=%s&song=%s", URLEncoder.encode(args[0], "UTF-8"), URLEncoder.encode(args[1], "UTF-8"));
         StringRequest request = new StringRequest(com.android.volley.Request.Method.GET, url, listener, errorListener);
         request.setRetryPolicy(new DefaultRetryPolicy(10000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));

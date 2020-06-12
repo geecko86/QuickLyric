@@ -46,6 +46,7 @@ import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.provider.LyricsChart;
 import com.geecko.QuickLyric.tasks.Id3Reader;
 import com.geecko.QuickLyric.tasks.WriteToDatabaseTask;
+import com.geecko.QuickLyric.utils.Chromaprint;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.OkHttp3Stack;
 
@@ -143,7 +144,14 @@ public class BatchDownloaderService extends IntentService implements Lyrics.Call
                 String title = track[1];
                 threadPool.execute(() -> {
                     try {
-                        requestQueue.add(LyricsChart.getVolleyRequest(lrc, BatchDownloaderService.this, BatchDownloaderService.this, artist, title));
+                        Request request;
+                        File musicFile = Id3Reader.getFile(BatchDownloaderService.this, artist, title, false);
+                        Chromaprint.Fingerprint fingerprint = null;
+                        if (musicFile != null && musicFile.getAbsolutePath().substring(musicFile.getName().length() - 4).equalsIgnoreCase(".mp3") && musicFile.exists() && musicFile.canRead()) {
+                            fingerprint = Chromaprint.getFingerprintForPath(BatchDownloaderService.this, musicFile.getAbsolutePath());
+                        }
+                        request = LyricsChart.getVolleyRequest(lrc, BatchDownloaderService.this, BatchDownloaderService.this, fingerprint, artist, title);
+                        requestQueue.add(request);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
