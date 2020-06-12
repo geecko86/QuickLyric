@@ -29,17 +29,16 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerTitleStrip;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.PagerTitleStrip;
-import androidx.viewpager.widget.ViewPager;
 
 import com.geecko.QuickLyric.adapter.SearchPagerAdapter;
 import com.geecko.QuickLyric.provider.Genius;
@@ -111,8 +110,8 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.search_view_pager);
         Toolbar toolbar = findViewById(R.id.search_toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getActionBar() != null)
+            getActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityManager.TaskDescription taskDescription =
@@ -123,7 +122,7 @@ public class SearchActivity extends AppCompatActivity {
 
         ViewPager viewPager = getViewPager();
         viewPager.setAdapter(new SearchPagerAdapter(
-                this.getSupportFragmentManager(), this, searchQuery));
+                this.getFragmentManager(), this, searchQuery));
         boolean online = OnlineAccessVerifier.check(this);
         viewPager.setCurrentItem(online ? 1 : 0);
         PagerTitleStrip titleIndicator = findViewById(R.id.pager_title_strip);

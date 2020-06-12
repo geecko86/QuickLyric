@@ -21,6 +21,7 @@ package com.geecko.QuickLyric.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,9 +32,6 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.geecko.QuickLyric.services.LyricsOverlayService;
 
