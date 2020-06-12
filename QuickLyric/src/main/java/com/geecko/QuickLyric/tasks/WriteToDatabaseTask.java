@@ -19,18 +19,18 @@
 
 package com.geecko.QuickLyric.tasks;
 
+import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.collection.LongSparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
-import androidx.collection.LongSparseArray;
-import androidx.fragment.app.Fragment;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
@@ -40,7 +40,6 @@ import com.geecko.QuickLyric.fragment.LyricsViewFragment;
 import com.geecko.QuickLyric.model.Lyrics;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.view.OverlayContentLayout;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.lang.ref.WeakReference;
 

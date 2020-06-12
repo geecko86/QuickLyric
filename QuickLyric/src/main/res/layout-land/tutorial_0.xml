@@ -33,7 +33,7 @@
         android:layout_centerVertical="true"
         android:layout_marginBottom="10dp"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/icon"
+        android:src="@drawable/icon"
         app:layout_widthPercent="60%"/>
 
     <RelativeLayout

@@ -20,6 +20,7 @@
 package com.geecko.QuickLyric.tasks;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -30,8 +31,6 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.WindowManager;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.model.Lyrics;
@@ -121,9 +120,9 @@ public class Id3Reader {
 
     private static File[] getFiles(Context context, String artist, String title, boolean requestPermission) {
         if (!PermissionsChecker.hasPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            if (context instanceof AppCompatActivity) {
+            if (context instanceof Activity) {
                 if (requestPermission) {
-                    PermissionsChecker.requestPermission((AppCompatActivity) context,
+                    PermissionsChecker.requestPermission((Activity) context,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
                             R.string.storage_permission_rationale,
                             Id3Reader.REQUEST_CODE);

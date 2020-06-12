@@ -20,6 +20,7 @@
 package com.geecko.QuickLyric.view;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Resources;
@@ -37,8 +38,6 @@ import android.net.NetworkRequest;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.ImageLoader;
@@ -145,11 +144,11 @@ public class FadeInNetworkImageView extends NetworkImageView {
             setImageBitmap(mLocalBitmap);
     }
 
-    private AppCompatActivity getActivity() {
+    private Activity getActivity() {
         Context context = getContext();
         while (context instanceof ContextWrapper) {
-            if (context instanceof AppCompatActivity) {
-                return (AppCompatActivity) context;
+            if (context instanceof Activity) {
+                return (Activity) context;
             }
             context = ((ContextWrapper) context).getBaseContext();
         }

@@ -20,13 +20,12 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="72dp"
     android:layout_height="72dp">
 
     <ImageView
         android:layout_width="72dp"
         android:layout_height="72dp"
-        app:srcCompat="@mipmap/ic_launcher_circle"/>
+        android:src="@mipmap/ic_launcher_circle"/>
 
 </FrameLayout>
