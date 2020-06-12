@@ -25,7 +25,6 @@ import android.animation.AnimatorInflater;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -81,11 +80,16 @@ import android.widget.ViewSwitcher;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.MenuItemCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -1056,7 +1060,7 @@ public class LyricsViewFragment extends Fragment implements Lyrics.Callback, Swi
 
         materialSearchView.setHint(getString(R.string.search_hint));
         if (mSearchQuery != null && !mSearchQuery.equals("")) {
-            searchItem.expandActionView();
+            MenuItemCompat.expandActionView(searchItem);
             materialSearchView.setQuery(mSearchQuery, false);
             if (mSearchFocused)
                 materialSearchView.requestFocus();

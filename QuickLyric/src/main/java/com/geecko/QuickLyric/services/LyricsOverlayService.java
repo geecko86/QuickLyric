@@ -21,7 +21,6 @@ package com.geecko.QuickLyric.services;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -52,6 +51,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.app.NotificationManagerCompat;
@@ -611,7 +611,7 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
     public static void showCustomFloatingView(Context context, final String player, final Notification notif, final String[] metadata, long duration) {
         if (App.isMainActivityVisible())
             return;
-        if (!(context instanceof Activity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) &&
+        if (!(context instanceof AppCompatActivity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) &&
                 (Build.VERSION.SDK_INT < M || Settings.canDrawOverlays(context))) {
             OverlayServiceCallback callback = new OverlayServiceCallback(context.getApplicationContext(), notif, metadata, duration);
             for (int i = 0; i < metadata.length; i++)
@@ -643,7 +643,7 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
     }
 
     public static void hideFloatingView(Context context) {
-        if (!(context instanceof Activity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)) {
+        if (!(context instanceof AppCompatActivity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)) {
             Intent hideIntent = new Intent(context, LyricsOverlayService.class);
             hideIntent.setAction(LyricsOverlayService.HIDE_FLOATING_ACTION);
             context.getApplicationContext().startService(hideIntent);

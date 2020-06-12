@@ -1,5 +1,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
@@ -19,7 +20,7 @@
             android:layout_above="@id/demo_image"
             android:layout_centerHorizontal="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/intro_4_red_key"
+            app:srcCompat="@drawable/intro_4_red_key"
             android:translationX="10.0dip"
             app:layout_heightPercent="25%"/>
 
@@ -30,7 +31,7 @@
             android:layout_above="@id/demo_image"
             android:layout_alignStart="@id/demo_image"
             android:scaleType="fitCenter"
-            android:src="@drawable/intro_4_yellow_key"
+            app:srcCompat="@drawable/intro_4_yellow_key"
             app:layout_heightPercent="25%"/>
 
         <ImageView
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
-            android:src="@drawable/intro_4_ads"
+            app:srcCompat="@drawable/intro_4_ads"
             app:layout_heightPercent="@fraction/ad_height"
             app:layout_widthPercent="@fraction/ad_width"/>
     </androidx.percentlayout.widget.PercentRelativeLayout>

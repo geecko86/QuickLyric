@@ -22,7 +22,6 @@ package com.geecko.QuickLyric.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.app.ActivityManager;
-import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -34,6 +33,8 @@ import androidx.core.view.VelocityTrackerCompat;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.ListFragment;
+
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;

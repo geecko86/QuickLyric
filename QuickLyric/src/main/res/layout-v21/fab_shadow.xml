@@ -20,8 +20,9 @@
 
 <ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fab_shadow"
-    android:src="@null"
+    app:srcCompat="@null"
     android:layout_marginEnd="9dp"
     android:layout_marginBottom="9dp"
     android:layout_gravity="bottom|end"

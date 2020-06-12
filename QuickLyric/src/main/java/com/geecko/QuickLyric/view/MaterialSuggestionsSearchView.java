@@ -19,7 +19,6 @@
 
 package com.geecko.QuickLyric.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
@@ -31,6 +30,8 @@ import android.view.ContextThemeWrapper;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.adapter.SearchSuggestionAdapter;
@@ -108,12 +109,12 @@ public class MaterialSuggestionsSearchView extends MaterialSearchView {
     public void refreshSuggestions() {
 
         Editable text;
-        if (getContext() instanceof Activity)
-            text = ((EditText) ((Activity) getContext()).findViewById(R.id.searchTextView)).getText();
+        if (getContext() instanceof AppCompatActivity)
+            text = ((EditText) ((AppCompatActivity) getContext()).findViewById(R.id.searchTextView)).getText();
         else if (getContext() instanceof ContextThemeWrapper)
-            text = ((EditText) ((Activity) ((ContextThemeWrapper) getContext()).getBaseContext()).findViewById(R.id.searchTextView)).getText();
+            text = ((EditText) ((AppCompatActivity) ((ContextThemeWrapper) getContext()).getBaseContext()).findViewById(R.id.searchTextView)).getText();
         else if (getContext() instanceof androidx.appcompat.view.ContextThemeWrapper)
-            text = ((EditText) ((Activity) ((androidx.appcompat.view.ContextThemeWrapper) getContext()).getBaseContext()).findViewById(R.id.searchTextView)).getText();
+            text = ((EditText) ((AppCompatActivity) ((androidx.appcompat.view.ContextThemeWrapper) getContext()).getBaseContext()).findViewById(R.id.searchTextView)).getText();
         else
             return;
         setQuery(text, false);

@@ -110,8 +110,8 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.search_view_pager);
         Toolbar toolbar = findViewById(R.id.search_toolbar);
         setSupportActionBar(toolbar);
-        if (getActionBar() != null)
-            getActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityManager.TaskDescription taskDescription =
@@ -122,7 +122,7 @@ public class SearchActivity extends AppCompatActivity {
 
         ViewPager viewPager = getViewPager();
         viewPager.setAdapter(new SearchPagerAdapter(
-                this.getFragmentManager(), this, searchQuery));
+                this.getSupportFragmentManager(), this, searchQuery));
         boolean online = OnlineAccessVerifier.check(this);
         viewPager.setCurrentItem(online ? 1 : 0);
         PagerTitleStrip titleIndicator = findViewById(R.id.pager_title_strip);

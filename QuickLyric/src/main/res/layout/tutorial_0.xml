@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/icon"
+        app:srcCompat="@drawable/icon"
         app:layout_heightPercent="70%"/>
 
 </androidx.percentlayout.widget.PercentRelativeLayout>
