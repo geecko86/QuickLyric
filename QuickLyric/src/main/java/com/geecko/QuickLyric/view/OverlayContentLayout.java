@@ -32,6 +32,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.ActionMenuView;
+import androidx.appcompat.widget.Toolbar;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -52,11 +56,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.ActionMenuView;
-import androidx.appcompat.widget.Toolbar;
 
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.MainActivity;
@@ -459,9 +458,9 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
             boolean positionAvailable = MediaControllerCallback.getActiveControllerPosition(getContext()) != -1;
 
             if (url == null)
-                new DownloadThread(new WeakReference<>(this), player, duration, Id3Reader.getFile(getContext(), artist, title, true), getContext(), artist, title).start();
+                new DownloadThread(new WeakReference<>(this), player, duration, Id3Reader.getFile(getContext(), artist, title, true), artist, title).start();
             else
-                new DownloadThread(new WeakReference<>(this), player, 0L, null, getContext(), url, artist, title).start();
+                new DownloadThread(new WeakReference<>(this), player, 0L, null, url, artist, title).start();
 
         } else if (lyrics != null)
             onLyricsDownloaded(lyrics);
@@ -600,7 +599,7 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
                 return;
             SharedPreferences preferences = OverlayContentLayout.this.getContext()
                     .getSharedPreferences("current_music", Context.MODE_PRIVATE);
-            final long[] position = new long[]{MediaControllerCallback.getActiveControllerPosition(getContext())};
+            final long[] position = new long[] {MediaControllerCallback.getActiveControllerPosition(getContext())};
             long duration = preferences.getLong("duration", -1);
             String player = preferences.getString("player", "");
             if (lrcView == null)
@@ -676,7 +675,7 @@ public class OverlayContentLayout extends LinearLayout implements Toolbar.OnMenu
             // No need to refresh
             stopRefreshAnimation();
             if (getLyrics().isLRC()) {
-                if (!((LrcView) findViewById(R.id.lrc_view)).hasLyrics())
+                if (!((LrcView)findViewById(R.id.lrc_view)).hasLyrics())
                     update(getLyrics(), false);
                 updateLRC();
             }

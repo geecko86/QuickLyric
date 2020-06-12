@@ -272,6 +272,13 @@ We thank you for your understanding!<br/><br/>
         <item>@string/settings_title</item>
         <item>@string/pref_about</item>
     </string-array>
+    <string-array name="providers" translatable="false">
+        <item>@string/source_punk</item>
+        <item>@string/source_metal</item>
+        <item>@string/source_hip_hop</item>
+        <item>@string/source_EDM</item>
+        <item>@string/source_japanese</item>
+    </string-array>
     <string-array name="premium_incent" translatable="false">
         <item>@string/premium_ads_incent</item>
         <item>@string/premium_night_mode_incent</item>

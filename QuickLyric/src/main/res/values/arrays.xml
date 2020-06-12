@@ -43,24 +43,4 @@
         <item>0</item>
         <item>1</item>
     </string-array>
-    <string-array name="providers_values">
-        <item>Genius</item>
-        <item>LyricsCharts</item>
-        <item>LyricWiki</item>
-        <item>AZLyrics</item>
-        <item>LyricsMania</item>
-        <item>PLyrics</item>
-        <item>MetalArchives</item>
-        <item>UrbanLyrics</item>
-        <item>Lololyrics</item>
-        <item>JLyric</item>
-        <item>ViewLyrics</item>
-    </string-array>
-    <string-array name="provider_defaults">
-        <item>Genius</item>
-        <item>LyricsCharts</item>
-        <item>LyricWiki</item>
-        <item>AZLyrics</item>
-        <item>LyricsMania</item>
-    </string-array>
 </resources>

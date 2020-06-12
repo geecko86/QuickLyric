@@ -26,11 +26,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.text.Html;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationCompat.BigTextStyle;
 import androidx.core.app.NotificationManagerCompat;
+import android.text.Html;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.model.Lyrics;
@@ -53,7 +52,7 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
                 .get(new String[]{intent.getStringExtra("artist"), intent.getStringExtra("track")});
         if (lyrics == null)
             new DownloadThread(new WeakReference<>(this), null, intent.getLongExtra("duration", 0L), Id3Reader.getFile(context, intent.getStringExtra("artist"), intent.getStringExtra("track"), false),
-                    context, intent.getStringExtra("artist"), intent.getStringExtra("track")).start();
+                    intent.getStringExtra("artist"), intent.getStringExtra("track")).start();
         else
             onLyricsDownloaded(lyrics);
     }
@@ -96,7 +95,7 @@ public class WearableRequestReceiver extends BroadcastReceiver implements Lyrics
                 .setColor(ColorUtils.getPrimaryColor(mContext))
                 .setGroupSummary(false)
                 .setContentIntent(openAction)
-                .setVisibility(NotificationCompat.VISIBILITY_SECRET); // Notification.VISIBILITY_SECRET
+                .setVisibility(-1); // Notification.VISIBILITY_SECRET
 
         if (notificationPref == 2)
             notifBuilder.setPriority(-2);

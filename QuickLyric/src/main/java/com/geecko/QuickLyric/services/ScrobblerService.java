@@ -32,10 +32,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.util.Log;
-
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationManagerCompat;
+import android.util.Log;
 
 import com.geecko.QuickLyric.broadcastReceiver.MusicBroadcastReceiver;
 import com.geecko.QuickLyric.model.Lyrics;
@@ -146,7 +145,7 @@ public class ScrobblerService extends Service implements MediaControllerCallback
                                 durationObject instanceof Float ? ((Float) durationObject).longValue() :
                                         (((Integer) durationObject).longValue() * 1000);
                 new DownloadThread(new ScrobblerCallback(this, broadcastRunnable, extras),
-                        extras.getString("player"), duration, null, getApplicationContext(), artist, track).start();
+                        extras.getString("player"), duration, null, artist, track).start();
             }
         }
         broadcastRunnable.run();
