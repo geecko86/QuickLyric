@@ -114,7 +114,7 @@ public class DownloadThread extends Thread {
                 callback.get() : null;
         return new Runnable() {
             private Set<String> getProvidersSet(Context context) {
-                return androidx.preference.PreferenceManager.getDefaultSharedPreferences(context).getStringSet("pref_providers", new HashSet<>(Arrays.asList(context.getResources().getStringArray(R.array.provider_defaults))));
+                return PreferenceManager.getDefaultSharedPreferences(context).getStringSet("pref_providers", new HashSet<>(Arrays.asList(context.getResources().getStringArray(R.array.provider_defaults))));
             }
 
             @SuppressWarnings("unchecked")
