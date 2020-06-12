@@ -30,8 +30,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -102,7 +100,7 @@ public class IMMLeaks {
                             servedView.addOnAttachStateChangeListener(this);
                         } else {
                             // servedView is not attached. InputMethodManager is being stupid!
-                            AppCompatActivity activity = extractActivity(servedView.getContext());
+                            Activity activity = extractActivity(servedView.getContext());
                             if (activity == null || activity.getWindow() == null) {
                                 // Unlikely case. Let's finish the input anyways.
                                 finishInputLockedMethod.invoke(inputMethodManager);
@@ -123,12 +121,12 @@ public class IMMLeaks {
             }
         }
 
-        private AppCompatActivity extractActivity(Context context) {
+        private Activity extractActivity(Context context) {
             while (true) {
                 if (context instanceof Application) {
                     return null;
-                } else if (context instanceof AppCompatActivity) {
-                    return (AppCompatActivity) context;
+                } else if (context instanceof Activity) {
+                    return (Activity) context;
                 } else if (context instanceof ContextWrapper) {
                     Context baseContext = ((ContextWrapper) context).getBaseContext();
                     // Prevent Stack Overflow.
@@ -151,7 +149,7 @@ public class IMMLeaks {
      * focus, which is what happens if you press home and come back from recent apps. This replaces
      * the reference to the detached view with a reference to the decor view.
      *
-     * Should be called from {@link AppCompatActivity#onCreate(android.os.Bundle)} )}.
+     * Should be called from {@link Activity#onCreate(android.os.Bundle)} )}.
      */
     public static void fixFocusedViewLeak(Application application) {
 

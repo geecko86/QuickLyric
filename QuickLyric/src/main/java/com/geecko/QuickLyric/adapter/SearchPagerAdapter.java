@@ -19,13 +19,12 @@
 
 package com.geecko.QuickLyric.adapter;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Build;
-import android.text.TextUtils;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.legacy.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import android.text.TextUtils;
 
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.SearchActivity;

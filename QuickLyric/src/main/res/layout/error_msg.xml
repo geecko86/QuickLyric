@@ -18,7 +18,7 @@
   ~  */
   -->
 
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
     android:id="@+id/error_msg"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -50,7 +50,7 @@
         android:layout_below="@id/bugtext"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/no_results"
-        app:srcCompat="@drawable/ic_error"/>
+        android:src="@drawable/ic_error"/>
 
     <TextView
         android:id="@+id/bugtext_letusknow"

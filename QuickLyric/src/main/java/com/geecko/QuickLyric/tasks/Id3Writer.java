@@ -23,14 +23,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Build;
+import androidx.drawerlayout.widget.DrawerLayout;
 import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;

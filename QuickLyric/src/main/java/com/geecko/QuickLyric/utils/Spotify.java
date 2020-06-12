@@ -27,12 +27,10 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.util.Base64;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import android.util.Base64;
+import android.widget.Toast;
 
 import com.drivemode.spotify.ClientConfig;
 import com.drivemode.spotify.Response;
@@ -159,7 +157,7 @@ public class Spotify {
         client.newCall(spotifyRequest).enqueue(new SpotifyKeyCallback(activity, playlists));
     }
 
-    public static void onCallback(Intent intent, AppCompatActivity activity) {
+    public static void onCallback(Intent intent, Activity activity) {
         try {
             SpotifyApi.getInstance().onCallback(intent.getData(), new AuthListener(activity, 0));
         } catch (IllegalStateException e) {
@@ -208,10 +206,10 @@ public class Spotify {
             LoaderManager.LoaderCallbacks<Response<User>> {
 
         private final int mOffset;
-        private final AppCompatActivity mActivity;
+        private final Activity mActivity;
         private ProgressDialog progressDialog;
 
-        public AuthListener(AppCompatActivity activity, int offset) {
+        public AuthListener(Activity activity, int offset) {
             this.mActivity = activity;
             this.mOffset = offset;
         }

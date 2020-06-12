@@ -30,13 +30,13 @@
     <TextView
         android:id="@android:id/text1"
         android:layout_width="wrap_content"
-        android:layout_height="?attr/listPreferredItemHeight"
+        android:layout_height="?android:attr/listPreferredItemHeight"
         android:layout_gravity="start|center_vertical"
         android:gravity="center_vertical"
         android:paddingStart="45dp"
         android:paddingEnd="45dp"
         android:singleLine="true"
-        android:textAppearance="?attr/textAppearanceListItem"
+        android:textAppearance="?android:attr/textAppearanceListItem"
         android:textColor="?android:textColorPrimary"
         />
 
@@ -47,7 +47,7 @@
         android:layout_gravity="end|center_vertical"
         android:paddingEnd="40dp"
         android:paddingStart="40dp"
-        app:srcCompat="@drawable/ic_collapsed_indicator"
+        android:src="@drawable/ic_collapsed_indicator"
         />
 
 </androidx.cardview.widget.CardView>
