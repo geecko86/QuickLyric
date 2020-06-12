@@ -39,12 +39,6 @@ import android.os.IBinder;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.view.ViewCompat;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.view.ContextThemeWrapper;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -57,6 +51,12 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.view.ViewCompat;
+
 import com.geecko.QuickLyric.App;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.model.Lyrics;
@@ -67,6 +67,7 @@ import com.geecko.QuickLyric.utils.NightTimeVerifier;
 import com.geecko.QuickLyric.utils.ResizeHandleTouchListener;
 import com.geecko.QuickLyric.view.OverlayContentLayout;
 import com.geecko.QuickLyric.view.OverlayLayout;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.lang.ref.WeakReference;
 
@@ -622,7 +623,7 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
                 else {
                     DownloadThread.LRC = PreferenceManager.getDefaultSharedPreferences(context)
                             .getBoolean("pref_lrc", true);
-                    new DownloadThread(new WeakReference<>(callback), player, duration, null, metadata[0], metadata[1]).start(); // FIXME use queue
+                    new DownloadThread(new WeakReference<>(callback), player, duration, null, context, metadata[0], metadata[1]).start(); // FIXME use queue
                 }
             } else {
                 callback.onLyricsDownloaded(null);
@@ -756,7 +757,7 @@ public class LyricsOverlayService extends Service implements FloatingViewListene
     public void onHandleMoved(float newX, float newY, float oldX, float oldY, int screenW, int screenH) {
         ViewGroup.LayoutParams lp = mOverlayWindow.getChildAt(0).getLayoutParams();
         int wMinimum = screenW * 3 / 4;
-        int hMinimum = screenH * 2 / 3 ;
+        int hMinimum = screenH * 2 / 3;
         lp.width = Math.min(originalWindowDimensions[0] + (int) (oldX - newX), screenW);
         lp.width = Math.max(lp.width, wMinimum);
         lp.height = Math.min(originalWindowDimensions[1] - (int) (oldY - newY), screenH);

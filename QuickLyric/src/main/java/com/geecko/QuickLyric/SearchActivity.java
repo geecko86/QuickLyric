@@ -29,18 +29,22 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.PagerTitleStrip;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.PagerTitleStrip;
+import androidx.viewpager.widget.ViewPager;
+
 import com.geecko.QuickLyric.adapter.SearchPagerAdapter;
+import com.geecko.QuickLyric.provider.Genius;
+import com.geecko.QuickLyric.provider.JLyric;
+import com.geecko.QuickLyric.provider.LyricWiki;
 import com.geecko.QuickLyric.provider.LyricsChart;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.LyricsSearchSuggestionsProvider;
@@ -50,6 +54,8 @@ import com.geecko.QuickLyric.view.MaterialSuggestionsSearchView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Set;
 
 public class SearchActivity extends AppCompatActivity {
     public ArrayList<Class> searchProviders = new ArrayList<>();
@@ -60,7 +66,26 @@ public class SearchActivity extends AppCompatActivity {
     private void updateSearchProviders() {
         searchProviders.clear();
         searchProviders.add(DatabaseHelper.class);
-        searchProviders.add(LyricsChart.class);
+
+        Set<String> providersSet = PreferenceManager.getDefaultSharedPreferences(this)
+                .getStringSet("pref_providers", Collections.emptySet());
+
+        for (String provider : providersSet) {
+            switch (provider) {
+                case "Genius":
+                    searchProviders.add(Genius.class);
+                    break;
+                case "JLyric":
+                    searchProviders.add(JLyric.class);
+                    break;
+                case "LyricWiki":
+                    searchProviders.add(LyricWiki.class);
+                    break;
+                case "LyricsCharts":
+                    searchProviders.add(LyricsChart.class);
+                    break;
+            }
+        }
     }
 
     @Override

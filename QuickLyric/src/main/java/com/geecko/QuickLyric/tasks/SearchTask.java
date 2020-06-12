@@ -26,8 +26,11 @@ import android.widget.Toast;
 import com.geecko.QuickLyric.R;
 import com.geecko.QuickLyric.SearchActivity;
 import com.geecko.QuickLyric.fragment.SearchFragment;
-import com.geecko.QuickLyric.provider.LyricsChart;
 import com.geecko.QuickLyric.model.Lyrics;
+import com.geecko.QuickLyric.provider.Genius;
+import com.geecko.QuickLyric.provider.JLyric;
+import com.geecko.QuickLyric.provider.LyricWiki;
+import com.geecko.QuickLyric.provider.LyricsChart;
 import com.geecko.QuickLyric.utils.DatabaseHelper;
 import com.geecko.QuickLyric.utils.OnlineAccessVerifier;
 
@@ -56,10 +59,10 @@ public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
         List<Lyrics> results;
         do
             results = doSearch(searchActivity.searchProviders.get(position));
-        while (results == null && !isCancelled() &&  searchFragment != null &&
+        while (results == null && !isCancelled() && searchFragment != null &&
                 searchFragment.get().getActivity() != null &&
                 (OnlineAccessVerifier.check(searchFragment.get().getActivity()) ||
-                position == 0)); // DatabaseHelper
+                        position == 0)); // DatabaseHelper
 
         return results;
     }
@@ -82,18 +85,24 @@ public class SearchTask extends AsyncTask<Object, Object, List<Lyrics>> {
 
     @SuppressWarnings("unchecked")
     private List<Lyrics> doSearch(Class provider) {
-        String s = provider.getSimpleName();
-        if (s.equals(DatabaseHelper.class.getSimpleName())) {
-            return DatabaseHelper.getInstance(searchFragment.get().getActivity()).search(searchQuery);
-        } else if (s.equals(LyricsChart.class.getSimpleName())) {
-            return search(searchQuery);
-        } else {
-            try {
-                return (List<Lyrics>) provider.getMethod("search", String.class).invoke(null, searchQuery);
-            } catch (Exception ignored) {
-                ignored.printStackTrace();
-                return null;
-            }
+        switch (provider.getSimpleName()) {
+            case "LyricWiki":
+                return LyricWiki.search(searchQuery);
+            case "Genius":
+                return Genius.search(searchQuery);
+            case "DatabaseHelper":
+                return DatabaseHelper.getInstance(searchFragment.get().getActivity()).search(searchQuery);
+            case "JLyric":
+                return JLyric.search(searchQuery);
+            case "LyricsChart":
+                return search(searchQuery);
+            default:
+                try {
+                    return (List<Lyrics>) provider.getMethod("search", String.class).invoke(null, searchQuery);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
         }
     }
 
