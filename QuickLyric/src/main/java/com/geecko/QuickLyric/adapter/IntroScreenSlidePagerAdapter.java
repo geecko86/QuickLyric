@@ -4,8 +4,6 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,13 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import androidx.legacy.app.FragmentStatePagerAdapter;
-import androidx.core.view.VelocityTrackerCompat;
-import androidx.viewpager.widget.ViewPager;
-import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.SwitchCompat;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -41,6 +32,16 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.view.VelocityTrackerCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
+import androidx.viewpager.widget.ViewPager;
 
 import com.geecko.QuickLyric.AboutActivity;
 import com.geecko.QuickLyric.BuildConfig;
@@ -91,7 +92,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
             Tutorial_2.class,
             Tutorial_4.class
     };
-    private Activity mActivity;
+    private AppCompatActivity mActivity;
     private ViewPager mPager;
     private boolean hasClicked = false;
     private int mCurrentPage;
@@ -209,8 +210,8 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
     };
 
 
-    public IntroScreenSlidePagerAdapter(final Activity activity) {
-        super(activity.getFragmentManager());
+    public IntroScreenSlidePagerAdapter(final AppCompatActivity activity) {
+        super(activity.getSupportFragmentManager());
         this.mActivity = activity;
         mPager = mActivity.findViewById(R.id.pager);
         mPager.setOnTouchListener(exitTouchListener);
@@ -419,7 +420,7 @@ public class IntroScreenSlidePagerAdapter extends FragmentStatePagerAdapter impl
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                         !NotificationListenerService.isAppScrobbling(mActivity)) {
                     LyricsViewFragment lyricsViewFragment = (LyricsViewFragment)
-                            mActivity.getFragmentManager().findFragmentByTag(MainActivity.LYRICS_FRAGMENT_TAG);
+                            mActivity.getSupportFragmentManager().findFragmentByTag(MainActivity.LYRICS_FRAGMENT_TAG);
                     lyricsViewFragment.showBrokenScrobblingWarning();
                 }
             }

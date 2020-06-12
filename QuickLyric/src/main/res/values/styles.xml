@@ -31,23 +31,21 @@
         <item name="android:headerBackground">@drawable/drawer_header</item>
         <item name="actionBarTheme">@style/actionBar.QuickLyric</item>
         <item name="android:listViewStyle">@style/Widget.AppCompat.ListView.DropDown</item>
-        <item name="android:dropDownListViewStyle">@style/DropDownBackground</item>
+        <item name="dropDownListViewStyle">@style/DropDownBackground</item>
         <item name="android:dropDownItemStyle">@style/searchSuggestionItemStyle</item>
         <item name="android:textCursorDrawable">@null</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
-        <item name="android:actionBarSize">@dimen/abc_action_bar_default_height_material</item>
-        <item name="android:actionModeCloseButtonStyle">@style/ActionMode.CloseButton</item>
-        <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
-        <item name="android:actionModeBackground">@drawable/cab_background</item>
+        <item name="actionBarSize">@dimen/abc_action_bar_default_height_material</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionMode.CloseButton</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_arrow_back</item>
+        <item name="actionModeBackground">@drawable/cab_background</item>
         <item name="actionModeColor">@color/action</item>
-        <item name="android:divider">@color/divider</item>
-        <item name="android:windowActionModeOverlay">true</item>
+        <item name="divider">@color/divider</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
         <item name="actionMenuTextColor">?android:textColorPrimary</item>
-        <item name="android:actionMenuTextColor">?android:textColorPrimary</item>
         <item name="android:windowBackground">@color/window_background</item>
         <item name="android:scrollViewStyle">@style/ScrollViewQuicklyric</item>
         <item name="drawerArrowStyle">@style/DrawerArrowQuickLyric</item>
@@ -149,7 +147,7 @@
         <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>
         <item name="musicIDBackgroundColor">@color/material_grey_900</item>
         <item name="android:detailsElementBackground">@color/pager_title_strip_color_dark</item>
-        <item name="android:dropDownListViewStyle">@style/DropDownBackground.Dark</item>
+        <item name="dropDownListViewStyle">@style/DropDownBackground.Dark</item>
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
         <item name="textAppearanceSearchResultTitle">@style/DarkSearchResult</item>
     </style>
@@ -157,7 +155,7 @@
     <style name="Theme.QuickLyric.Night" parent="Theme.QuickLyric.Dark">
         <item name="themeName">Night</item>
         <item name="alertDialogTheme">@style/NightDialog</item>
-        <item name="android:colorBackground">#555</item>
+        <item name="android:colorBackground">@color/grey</item>
         <item name="android:panelColorBackground">#333</item>
         <item name="android:textColorSecondary">#BBB</item>
         <item name="android:textColorSecondaryInverse">#BBB</item>
@@ -168,7 +166,7 @@
         <item name="android:panelColorForeground">#191919</item>
         <item name="actionModeColor">?attr/colorPrimary</item>
         <item name="android:absListViewStyle">@style/DrawerListViewAppearance.Night</item>
-        <item name="android:divider">@color/divider_night</item>
+        <item name="divider">@color/divider_night</item>
         <item name="android:listSelector">@drawable/listview_row_selector_night</item>
         <item name="actionOverflowMenuStyle">@style/overflowMenuStyle</item>
         <item name="android:galleryItemBackground">@color/navigation_drawer_selected_night</item>
@@ -176,7 +174,7 @@
     </style>
 
     <style name="NightDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">#555</item>
+        <item name="background">@color/grey</item>
         <item name="android:textColorSecondary">#BBB</item>
         <item name="android:textColorSecondaryInverse">#BBB</item>
         <item name="android:textColorPrimary">#EEE</item>
@@ -188,10 +186,10 @@
     </style>
 
     <style name="actionBar.QuickLyric" parent="Base.ThemeOverlay.AppCompat.ActionBar">
-        <item name="android:actionBarItemBackground">@drawable/abc_item_background_holo_light</item>
+        <item name="actionBarItemBackground">@drawable/abc_item_background_holo_light</item>
         <item name="selectableItemBackground">@drawable/abc_item_background_holo_light</item>
-        <item name="android:popupMenuStyle">@style/Widget.AppCompat.Light.PopupMenu</item>
-        <item name="android:actionOverflowMenuStyle" tools:ignore="NewApi">
+        <item name="popupMenuStyle">@style/Widget.AppCompat.Light.PopupMenu</item>
+        <item name="actionOverflowMenuStyle" tools:ignore="NewApi">
             @android:style/Widget.Material.Light.PopupMenu.Overflow
         </item>
         <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
@@ -211,7 +209,7 @@
     </style>
 
     <style name="ActionMode.CloseButton" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
-        <item name="android:background">?selectableItemBackgroundBorderless</item>
+        <item name="background">?selectableItemBackgroundBorderless</item>
     </style>
 
     <style name="ScrollViewQuicklyric" parent="android:Widget.ScrollView">
@@ -225,16 +223,16 @@
 
     <style name="DrawerListViewAppearance" parent="Theme.QuickLyric">
         <item name="colorControlHighlight">#e0e0e0</item>
-        <item name="android:background">?android:attr/panelColorBackground</item>
+        <item name="background">?android:attr/panelColorBackground</item>
     </style>
 
     <style name="DrawerListViewAppearance.Night" parent="Theme.QuickLyric.Night">
-        <item name="colorControlHighlight">#555</item>
-        <item name="android:background">?android:attr/panelColorBackground</item>
+        <item name="colorControlHighlight">@color/grey</item>
+        <item name="background">?android:attr/panelColorBackground</item>
     </style>
 
     <style name="DropDownBackground" parent="Widget.AppCompat.Light.ListView.DropDown">
-        <item name="android:background">#fff</item>
+        <item name="background">@android:color/white</item>
     </style>
 
     <style name="DropDownBackground.Dark" parent="Widget.AppCompat.ListView.DropDown">
@@ -252,7 +250,7 @@
     </style>
 
     <style name="overflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:tint">@color/material_white</item>
+        <item name="tint">@color/material_white</item>
     </style>
 
     <style name="overflowMenuTextAppearanceNight" parent="TextAppearance.AppCompat.Widget.PopupMenu.Large">

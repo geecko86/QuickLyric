@@ -48,11 +48,11 @@
             android:layout_height="match_parent"
             android:ellipsize="end"
             android:gravity="center_vertical"
-            android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            android:minHeight="?attr/listPreferredItemHeightSmall"
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
             android:singleLine="true"
-            android:textAppearance="?android:textAppearanceListItemSmall"
+            android:textAppearance="?attr/textAppearanceListItemSmall"
             android:textColor="?android:textColorPrimary"
             tools:text="Sweet Child O'Mine"/>
 
@@ -62,7 +62,7 @@
             android:layout_height="1dp"
             android:layout_gravity="bottom"
             android:alpha="0.5"
-            android:background="?android:divider"/>
+            android:background="?attr/divider"/>
 
     </androidx.cardview.widget.CardView>
 

@@ -10,8 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.geecko.QuickLyric.MainActivity;
 import com.geecko.QuickLyric.R;
+import com.squareup.haha.perflib.Main;
 
 /**
  * This file is part of QuickLyric

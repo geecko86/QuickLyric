@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/intro_5_gear"
+        app:srcCompat="@drawable/intro_5_gear"
         android:translationX="@dimen/redGear_X"
         android:translationY="@dimen/redGear_Y"/>
 
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/intro_5_gear_b"
+        app:srcCompat="@drawable/intro_5_gear_b"
         android:translationX="@dimen/bluegear_X"
         android:translationY="@dimen/bluegear_Y"/>
 

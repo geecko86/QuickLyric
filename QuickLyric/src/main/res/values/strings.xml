@@ -192,7 +192,7 @@ We thank you for your understanding!<br/><br/>
     <string name="recent_tracks_title">Recent Tracks</string>
     <string name="recents_empty_database">You haven\'t listened to anything yet</string>
     <string name="gmusic_import_securityException">Google Play Music needs to have been launched for this to work</string>
-    <string name="miui_autostart">%s owners must first unblock the app</string>
+    <string name="miui_autostart">%1$d owners must first unblock the app</string>
     <string name="musicid_instructions">Hold your phone up to the music</string>
     <string name="loading">Loading…</string>
     <string name="nls_issues">QuickLyric has trouble reading your music</string>

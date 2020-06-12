@@ -47,4 +47,5 @@
     <color name="pager_title_strip_color_dark">#aa000000</color>
     <color name="mdtp_accent_color">@color/accent</color>
     <color name="mdtp_accent_color_dark">@color/accent_dark</color>
+    <color name="grey">#555</color>
 </resources>

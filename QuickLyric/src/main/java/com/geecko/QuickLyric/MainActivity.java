@@ -24,9 +24,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
@@ -49,16 +46,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.viewpager.widget.ViewPager;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.ActionMode;
@@ -72,6 +59,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import com.geecko.QuickLyric.adapter.DrawerAdapter;
 import com.geecko.QuickLyric.adapter.IntroScreenSlidePagerAdapter;
@@ -101,6 +100,8 @@ import com.geecko.QuickLyric.utils.Spotify;
 import com.geecko.QuickLyric.view.LrcView;
 import com.geecko.QuickLyric.view.MaterialSuggestionsSearchView;
 import com.geecko.QuickLyric.view.RefreshIcon;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         super.onCreate(savedInstanceState);
         setStatusBarColor(null);
         setNavBarColor(null);
-        final FragmentManager fragmentManager = getFragmentManager();
+        final FragmentManager fragmentManager = getSupportFragmentManager();
         setContentView(layout.nav_drawer_activity);
         setSupportActionBar(findViewById(id.toolbar));
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -293,7 +294,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     }
 
     private Fragment[] getActiveFragments() {
-        FragmentManager fragmentManager = this.getFragmentManager();
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
         Fragment[] fragments = new Fragment[6];
         fragments[0] = fragmentManager.findFragmentByTag(LYRICS_FRAGMENT_TAG);
         fragments[1] = fragmentManager.findFragmentByTag(SEARCH_FRAGMENT_TAG);
@@ -334,7 +335,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     }
 
     public void updatePrefsChanges() {
-        LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
+        LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getSupportFragmentManager()
                 .findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (lyricsViewFragment != null) {
             if (getIntent() == null || getIntent().getAction() == null ||
@@ -364,7 +365,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                     search(intent.getStringExtra(SearchManager.QUERY));
                     break;
                 case "android.intent.action.SEND":
-                    LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager()
+                    LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getSupportFragmentManager()
                             .findFragmentByTag(LYRICS_FRAGMENT_TAG);
                     new IdDecoder(this, lyricsViewFragment).execute(getIdUrl(extra));
                     selectItem(0);
@@ -378,7 +379,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
                     if (metadata != null) {
                         String artist = metadata[0];
                         String track = metadata[1];
-                        LyricsViewFragment lyricsFragment = (LyricsViewFragment) getFragmentManager()
+                        LyricsViewFragment lyricsFragment = (LyricsViewFragment) getSupportFragmentManager()
                                 .findFragmentByTag(LYRICS_FRAGMENT_TAG);
                         lyricsFragment.fetchLyrics(true, null, 0L, artist, track);
                         lyricsFragment.manualUpdateLock = true;
@@ -421,7 +422,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
     private void updateDBList() {
         LocalLyricsFragment localLyricsFragment =
-                (LocalLyricsFragment) getFragmentManager().findFragmentByTag(LOCAL_LYRICS_FRAGMENT_TAG);
+                (LocalLyricsFragment) getSupportFragmentManager().findFragmentByTag(LOCAL_LYRICS_FRAGMENT_TAG);
         if (localLyricsFragment != null && localLyricsFragment.isActiveFragment)
             new DBContentLister(localLyricsFragment).execute();
         else
@@ -448,7 +449,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         super.onActivityResult(requestCode, resultCode, data);
         invalidateOptionsMenu();
         LyricsViewFragment lyricsViewFragment =
-                (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
+                (LyricsViewFragment) getSupportFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (lyricsViewFragment == null)
             return;
         if (requestCode == 77) {
@@ -553,7 +554,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             case LocalLyricsFragment.REQUEST_CODE:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     LocalLyricsFragment localLyricsFragment = (LocalLyricsFragment)
-                            getFragmentManager().findFragmentByTag(LOCAL_LYRICS_FRAGMENT_TAG);
+                            getSupportFragmentManager().findFragmentByTag(LOCAL_LYRICS_FRAGMENT_TAG);
                     localLyricsFragment.showScanDialog();
                 } else {
                     Toast.makeText(this, string.scan_error_permission_denied, Toast.LENGTH_LONG).show();
@@ -660,7 +661,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
     public void updateArtwork(String url) {
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment)
-                getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
+                getSupportFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (lyricsViewFragment != null)
             lyricsViewFragment.setCoverArt(url, null);
     }
@@ -670,7 +671,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         updateLyricsFragment(R.animator.none, R.animator.none,
                 true, false, event.lyrics);
         LyricsViewFragment lyricsViewFragment =
-                ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
+                ((LyricsViewFragment) getSupportFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
         if (lyricsViewFragment != null)
             lyricsViewFragment.stopRefreshAnimation();
     }
@@ -679,7 +680,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     public void onMessageEvent(RecentsDownloadingEvent event) {
         selectItem(0);
         LyricsViewFragment lyricsViewFragment =
-                ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
+                ((LyricsViewFragment) getSupportFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
         if (lyricsViewFragment != null) {
             lyricsViewFragment.startRefreshAnimation();
         }
@@ -693,7 +694,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         if (params.length > 2)
             url = params[2];
         LyricsViewFragment lyricsViewFragment = (LyricsViewFragment)
-                getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
+                getSupportFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
         if (lyricsViewFragment != null) {
             if (!lyricsViewFragment.isActiveFragment) {
                 selectItem(0);
@@ -714,7 +715,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
             lyricsViewFragment = new LyricsViewFragment();
             lyricsViewFragment.setArguments(lyricsBundle);
 
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.animator.slide_in_start, outAnim, R.animator.slide_in_start, outAnim);
             Fragment activeFragment = getDisplayedFragment(getActiveFragments());
             if (activeFragment != null) {
@@ -732,8 +733,8 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     }
 
     public void updateLyricsFragment(int outAnim, int inAnim, boolean transition, boolean lock, Lyrics lyrics) {
-        LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        LyricsViewFragment lyricsViewFragment = (LyricsViewFragment) getSupportFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(inAnim, outAnim, inAnim, outAnim);
         Fragment activeFragment = getDisplayedFragment(getActiveFragments());
         if (lyricsViewFragment != null && lyricsViewFragment.getView() != null) {
@@ -818,7 +819,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
 
     // Swaps fragments from the drawer
     private void selectItem(int position) {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment newFragment;
         String tag;
         switch (position) {
@@ -882,7 +883,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         if (newFragment != activeFragment) {
             if (mActionMode != null)
                 mActionMode.finish();
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.animator.slide_in_start, R.animator.slide_out_start, R.animator.slide_in_start, R.animator.slide_out_start);
             fragmentTransaction.hide(activeFragment);
             if (newFragment.isAdded())
@@ -928,7 +929,7 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
     }
 
     public void letUsKnowPopUp(View view) {
-        LyricsViewFragment lyricsViewFragment = ((LyricsViewFragment) getFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
+        LyricsViewFragment lyricsViewFragment = ((LyricsViewFragment) getSupportFragmentManager().findFragmentByTag(LYRICS_FRAGMENT_TAG));
         if (lyricsViewFragment != null && !lyricsViewFragment.isDetached())
             startFeedbackActivity(this, false);
     }
